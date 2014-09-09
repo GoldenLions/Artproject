@@ -1,0 +1,55 @@
+<div class="container userPageViewContainer">
+  
+  <div class="centerBanner">
+
+    <form class="searchResultsForm">
+      <input type="text" class="searchBar searchBarInput" ng-model="searchterms" placeholder="Enter search terms...">
+      <button class="searchBar searchBarButton" ng-click="displayResults()" >Search!</button>
+  </form>
+    </br>
+  <h2> My Likes </h2>
+    
+  </div>
+
+  <div class="clearfix"></div>
+
+  
+
+  <!-- The left half of the user page displays the users liked photos -->
+  <div class="leftAlign">
+
+  
+  <div class="allSearchResults">
+  <div class='SearchResultsImages' ng-repeat='result in userLikesResults'>
+      <a href = "/#/art/{{result.id}}">
+      <img class='resultImage' src='{{result.url}}' max-width="20%" max-height="200">
+      </a>
+    <div class="artInfo">
+        <i>{{result.title}}</i>
+        </br>
+        Artist: {{result.artist}}
+    </div>
+
+  </div> 
+  </div>
+
+  </div>
+ <!-- The right half of page displays recommended photos, etc. -->
+  <div class="rightAlign">
+  <!-- rows of recommended art-->
+  <div class="resultsDisplay">
+
+
+    <table class="userRecommendations">
+     <tr ng-repeat="result in results">
+       <td>{{result[0]}}</td><td>{{result[1]}}</td>
+     </tr>
+
+   </table>
+
+
+
+  </div>
+
+  </div> 
+</div>

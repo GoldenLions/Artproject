@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="fakeImage"><img class="artImage" src="{{work.url}}"></div>
+
+	<table class="artInfo">
+		<tr ng-repeat="result in results">
+			<td>{{result.type}}</td><td>{{result.value}}</td>
+		</tr>
+	</table>
+
+	<!-- the action link below will send the ID to the server to create the user-art edge -->
+	<button class="likeButtonClass" ng-click="like()">Like</a>
+</div>
