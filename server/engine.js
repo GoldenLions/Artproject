@@ -1,20 +1,19 @@
 var Trie = function() {
   this.children = {};
+  this.isWordEnd = false;
 };
-Trie.prototype.add = function(word) {
-  if (word instanceof Array) {
-    for (var j = 0, len = word.length; j < len; j++) {
-      this.add(word[j]);
+Trie.prototype.add = function(words) {
+  words = words instanceof Array ? words : [words];
+  var word, token, currentNode;
+  for (var i = 0, len_i = words.length; i < len_i; i++) {
+    word = words[i];
+    currentNode = this;
+    for (var j = 0, len_j = word.length; j < len_j; j++) {
+      token = word[j];
+      currentNode = currentNode.children[token] || (currentNode.children[token] = new Trie());
     }
-    return;
+    currentNode.isWordEnd = true;  
   }
-  var token;
-  var currentNode = this;
-  for (var i = 0, len = word.length; i < len; i++) {
-    token = word[i];
-    currentNode = currentNode.children[token] || (currentNode.children[token] = new Trie());
-  }
-  currentNode.children['#END#'] = true;
 };
 Trie.prototype.traverse = function(partial) {
   var token;
@@ -31,7 +30,7 @@ Trie.prototype.traverse = function(partial) {
 Trie.prototype.has = function(word) {
   var bottom = this.traverse(word);
   if (bottom) {
-    return !!bottom.children['#END#'];
+    return bottom.isWordEnd;
   } else {
     return false;
   }
@@ -39,18 +38,14 @@ Trie.prototype.has = function(word) {
 Trie.prototype.complete = function(partial) {
   var results = [];
   var suffixes;
-  
   var bottom = this.traverse(partial);
   if (bottom) {
+    if (bottom.isWordEnd) results.push(partial);
     for (var token in bottom.children) {
-      if (token === '#END#') {
-        results.push(partial);
-      } else {
-        suffixes = bottom.children[token].print();
-        for (var i = 0, len = suffixes.length; i < len; i++) {
-          results.push(partial + token + suffixes[i]);
-        }
-      }
+      suffixes = bottom.children[token].print();
+      for (var i = 0, len = suffixes.length; i < len; i++) {
+        results.push(partial + token + suffixes[i]);
+      }     
     }
   }
   return results;
@@ -77,8 +72,7 @@ Engine.prototype.add = function(datum) {
     return;
   }
   var id = this.data.push(datum) - 1;
-  var words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)]/g,'').split(' ');
-  var word;
+  var word, words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)]/g,'').split(' ');
   for (var i = 0, len = words.length; i < len; i++) {
     word = words[i];
     if (word.length > 2 || parseInt(word)) {
@@ -90,22 +84,31 @@ Engine.prototype.add = function(datum) {
   }
 };
 
-Engine.prototype.match = function(partial) {
-  partial = partial.toLowerCase();
-  var completes = this.trie.complete(partial);
-  var ids;
-  var matchIds = {};
-  for (var i = 0, len_i = completes.length; i < len_i; i++) {
-    ids = this._map[completes[i]];
-    for (var j = 0, len_j = ids.length; j < len_j; j++) {
-      matchIds[ids[j]] = true;
+Engine.prototype.match = function(partials) {
+  partials = partials instanceof Array ? partials : [partials];
+  var partial, completes;
+  var ids, matchIds, matchUnion = [];
+  for (var i = 0, len_i = partials.length; i < len_i; i++) {
+    matchIds = {};
+    partial = partials[i].toLowerCase();
+    completes = this.trie.complete(partial);
+    for (var j = 0, len_j = completes.length; j < len_j; j++) {
+      ids = this._map[completes[j]];
+      for (var k = 0, len_k = ids.length; k < len_k; k++) {
+        matchIds[ids[k]] = true;
+      }
     }
+    matchUnion.push(matchIds);
   }
-  var results = [];
-  for (var id in matchIds) {
-    results.push(this.data[id]);
+  var intersects, matchIntersection = [];
+  for (var id in matchUnion[0]) {
+    intersects = true;
+    for (var l = 1, len_l = matchUnion.length; l < len_l; l++) {
+      if (!(intersects = id in matchUnion[l])) break;
+    }
+    if (intersects) matchIntersection.push(this.data[id]);
   }
-  return results;
+  return matchIntersection;
 };
 
 
