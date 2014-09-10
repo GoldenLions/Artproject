@@ -53,9 +53,6 @@ Trie.prototype.complete = function(partial) {
 Trie.prototype.print = function() {
   return this.complete('');
 };
-Trie.prototype.serialize = function(readable) {
-  return readable ? JSON.stringify(this,null,2) : JSON.stringify(this);
-}; 
 
 
 var Engine = function() {
@@ -63,27 +60,25 @@ var Engine = function() {
   this._map = {};
   this.trie = new Trie();
 };
-
-Engine.prototype.add = function(datum) {
-  if (datum instanceof Array) {
-    for (var j = 0,len = datum.length; j < len; j++) {
-      this.add(datum[j]);
-    }
-    return;
-  }
-  var id = this.data.push(datum) - 1;
-  var word, words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)]/g,'').split(' ');
-  for (var i = 0, len = words.length; i < len; i++) {
-    word = words[i];
-    if (word.length > 2 || parseInt(word)) {
-      word = word.toLowerCase();
-      this._map[word] = this._map[word] || [];
-      this._map[word].push(id);
-      this.trie.add(word);
+Engine.prototype.add = function(data) {
+  data = data instanceof Array ? data : [data];
+  var datum, id;
+  var word, words;
+  for (var i = 0,len_i = data.length; i < len_i; i++) {
+    datum = data[i];
+    id = this.data.push(datum) - 1;
+    words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)]/g,'').split(' ');
+    for (var j = 0, len_j = words.length; j < len_j; j++) {
+      word = words[j];
+      if (word.length > 2 || parseInt(word)) {
+        word = word.toLowerCase();
+        this._map[word] = this._map[word] || [];
+        this._map[word].push(id);
+        this.trie.add(word);
+      }
     }
   }
 };
-
 Engine.prototype.match = function(partials) {
   partials = partials instanceof Array ? partials : [partials];
   var partial, completes;
