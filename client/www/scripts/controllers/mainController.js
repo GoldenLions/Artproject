@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('dangerousWrenchApp')
   .controller('MainCtrl', function ($scope, KeywordSearch) {
     $scope.searchterms;

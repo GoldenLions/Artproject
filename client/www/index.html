@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" style="height:100%">
+<<<<<<< HEAD
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -58,19 +59,63 @@
         <p> Everyone loves footers </p>
       </div>
     </div> -->
+=======
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
 
+  <!-- Styles / fonts -->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" media="all" href="styles/fonts.css" />
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="cordova.js"></script>
+</head>
+<body ng-app="dangerousWrenchApp">
+  <div class="mainElement">
+    <div class='header'>
+      <ul class="nav nav-pills pull-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="" data-toggle="dropdown">LOG IN <strong class="caret"></strong></a>
+          <div class="dropdown-menu">
+          <form action="/login" method="post">
+            <input class="dropdown-input" type="text" name="username" placeholder="Username"/>
+            <input class="dropdown-input" type="password" name="password" placeholder="Password"/>
+            <input class="btn btn-primary entryButton" type="submit" value="LOG IN" />
+          </form>
+          </div>
+        </li>
+        <li class="divider-vertical"></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="" data-toggle="dropdown">SIGN UP <strong class="caret"></strong></a>
+          <div class="dropdown-menu dropdown-menu-right-aligned">
+          <form action="/signup" method="post" accept-charset="UTF-8">
+            <input class="dropdown-input" type="text" name="signup_username" placeholder="Username"/>
+            <input class="dropdown-input" type="password" name="signup_password" placeholder="Password"/>
+            <input class="btn btn-primary entryButton" type="submit" name="commit" value="SIGN UP" />
+          </form>
+          </div>
+        </li>
+      </ul>
+      <h3 class="active logo text-muted"><a ng-href="#" class='glyphicon glyphicon-leaf'></a></h3>
+      <h3 class="navSpacing">-</h3>
+    </div>
+>>>>>>> 9e4f13518da3daf5e467f127ff082a783f37b7f3
 
+    <div ng-view="" class="mainElement"></div>
+
+    <div class="footer">
+      <p> Everyone loves footers </p>
+    </div>
+  </div>
+
+<<<<<<< HEAD
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -101,4 +146,28 @@
     <script src="scripts/services/likebuttonService.js"></script>
   
   </body>
+=======
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/es5-shim/es5-shim.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/json3/lib/json3.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="lib/angular-resource/angular-resource.js"></script>
+  <script src="lib/angular-cookies/angular-cookies.js"></script>
+  <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="lib/angular-touch/angular-touch.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/artController.js"></script>
+  <script src="scripts/controllers/mainController.js"></script>
+  <script src="scripts/controllers/searchResultsController.js"></script>
+  <script src="scripts/controllers/userPageController.js"></script>
+  <script src="scripts/services/keywordSearchService.js"></script>
+  <script src="scripts/services/artServices.js"></script>
+  <script src="scripts/services/userServices.js"></script>
+  <script src="scripts/services/likebuttonService.js"></script>
+</body>
+>>>>>>> 9e4f13518da3daf5e467f127ff082a783f37b7f3
 </html>

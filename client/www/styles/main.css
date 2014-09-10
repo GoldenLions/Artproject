@@ -39,7 +39,7 @@ body {
   line-height: 30px;
   padding-bottom: 10px;
   margin-left:5px;
-  margin-top:5px; 
+  margin-top:5px;
 }
 
 .header .logo {
@@ -54,7 +54,6 @@ body {
 
 /* Custom page footer */
 .footer {
-  visibility:hidden;
   padding-top:15px;
   color: #777;
   height:40px;
@@ -103,7 +102,7 @@ body {
   padding:5px;
   border:4px inset #3A3B3A;
   left:15px;
-  top:-2.5px; 
+  top:-2.5px;
 }
 .glyphicon-leaf:hover,
 .glyphicon-leaf:focus,
@@ -133,13 +132,13 @@ a.dropdown-toggle {
 .nav > li > a:focus {
   background-color: #F5F2EB;
 }
-.nav .open > a, 
-.nav .open > a:hover, 
+.nav .open > a,
+.nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #F5F2EB;
 }
 li.dropdown:first-child{
-  border-right: 1px solid #e7e7e7; 
+  border-right: 1px solid #e7e7e7;
 }
 .dropdown-menu {
   background-color: #3A3B3A;
@@ -178,14 +177,14 @@ input {
   size:30;
 }
 .entryButton {
-  width: 100%; 
-  height: 32px; 
-  color: #3A3B3A; 
+  width: 100%;
+  height: 32px;
+  color: #3A3B3A;
   font-size: 13px;
   background-color: #D9CDB8;
   border-radius: 0px;
   border: none;
-  clear: left; 
+  clear: left;
   padding-top:8px;
   margin-bottom: 15px;
   -webkit-transition: border-radius .35s ease;
@@ -238,7 +237,7 @@ input {
   height:2px;
   width:60%;
   margin:auto;
-  background-color: rgba(136, 203, 175, .2);  
+  background-color: rgba(136, 203, 175, .2);
 }
 .centerbox > p {
   width:85%;
@@ -327,9 +326,9 @@ button.dropdown-toggle {
   margin-right:0px;
   background-color: rgba(237, 231, 218, .3);
   border: 4px solid rgba(237, 231, 218, 1);
-  
+
 }
-.btn-group > .btn:last-child:not(:first-child), 
+.btn-group > .btn:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-radius: 0px;
   }
@@ -352,7 +351,7 @@ button.dropdown-toggle {
   border-color:rgba(237, 231, 218, 1);
  }
 
-.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   background-color: rgba(237, 231, 218, .5);
   box-shadow: 0 0 20px rgba(237, 231, 218, 1);
@@ -364,7 +363,7 @@ button.dropdown-toggle {
 }
 
 .SearchResultsContainer > .clearfix {
-  background-color:#e7e7e7; 
+  background-color:#e7e7e7;
   height:1px;
   width:80%;
 }

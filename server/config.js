@@ -9,7 +9,7 @@ module.exports = function(app, express){
     resave: true,
     saveUninitialized: true
   }));
-  app.use(express.static(path.join(__dirname, '../client/app')));
+  app.use(express.static(path.join(__dirname, '../client/www')));
   app.use(express.static(path.join(__dirname, '../client')));
 
   require('./routes.js')(app);
