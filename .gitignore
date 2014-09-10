@@ -5,3 +5,4 @@ platforms/
 plugins/
 .DS_Store
 node_modules
+server/aws.json

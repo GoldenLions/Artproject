@@ -46,7 +46,7 @@ composeEngine = function(file,write) {
   engine.add(array);
 
   if (write) {
-    fs.writeFile('engine-'+file, JSON.stringify(engine,null,2), function() {
+    fs.writeFile('engine-'+file, JSON.stringify(engine), function() {
       console.log(file + ' file finished.');
     })
   }
@@ -57,9 +57,11 @@ composeEngine = function(file,write) {
 var testEngine = function(file,write) {
   var start = Date.now();
   var engine = composeEngine(file,write);
-  console.log('Initialization took:',Date.now() - start)+'ms.';
+  console.log('Initialization took:',(Date.now() - start)+'ms.');
 
-  console.log(engine.match('proo'))
+  start = Date.now();
+  console.log(engine.match(['bur','sta','looki', 'west']))
+  console.log('.match took:',(Date.now() - start)+'ms.');
 };
 
 // convertToUnique('title.json','title');
@@ -67,5 +69,9 @@ var testEngine = function(file,write) {
 // convertToUnique('medium.json','medium');
 
 // testTrie('unique-title.json');
-testEngine('unique-title.json', true);
+testEngine('unique-title.json');
+
+// composeEngine('unique-title.json', true);
+// composeEngine('unique-artist.json', true);
+// composeEngine('unique-medium.json', true);
 
