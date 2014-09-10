@@ -3,15 +3,28 @@
 /*
  * Main module of the application.
  */
-angular
-  .module('dangerousWrenchApp', [
-    'ngAnimate',
+
+ angular.module('dangerousWrenchApp', ['ionic','ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
   ])
+
+ .run(function($ionicPlatform) {
+   $ionicPlatform.ready(function() {
+     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+     // for form inputs)
+     if(window.cordova && window.cordova.plugins.Keyboard) {
+       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+     }
+     if(window.StatusBar) {
+       StatusBar.styleDefault();
+     }
+   });
+ })
+
   .config(function ($locationProvider, $routeProvider) {
     $locationProvider
     $routeProvider
@@ -34,6 +47,10 @@ angular
       .when('/homepage/:user', {
         templateUrl: 'views/userPageView.html',
         controller: 'UserController'
+      })
+      .when('/recommendation', {
+        templateUrl: 'views/recommendation.html',
+        controller: 'UserRecommend'
       })
       .otherwise({
         redirectTo: '/'

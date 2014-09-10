@@ -1,0 +1,25 @@
+<ion-header-bar class="bar-positive">
+<h1 class="title">Art Recommendations</h1>
+</ion-header-bar>
+
+<ion-content>
+  
+  <div class="list">
+ 
+        <div ng-repeat="item in items" 
+         class="item item-thumbnail-right">
+            <ion-checkbox >
+            <img ng-src="{{ item.image }}">
+            <h2>{{ item.album }}</h2>
+            <h4>{{ item.artist }}</h4>
+        </div>
+
+    </ion-checkbox>
+   
+</div>
+
+
+</ion-content>
+
+
+    

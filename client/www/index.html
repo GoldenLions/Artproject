@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<!--     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" /> -->
  
     <!-- Styles / fonts -->
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <link rel="stylesheet" type="text/css" media="all" href="styles/fonts.css" />
-
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet"/>
+   
+    <link rel="stylesheet" type="text/css" href="styles/fonts.css" />
+<!-- 
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="styles/main.css">
+     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="cordova.js"></script>
   </head>
-  <body ng-app="dangerousWrenchApp">
- 
+  <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7">
+ <!-- 
     <div class="mainElement">
       <div class='header'>
         <ul class="nav nav-pills pull-right">
@@ -45,19 +45,19 @@
               <input class="btn btn-primary entryButton" type="submit" name="commit" value="SIGN UP" />
             </form>
             </div>
-          </li>
+          </li> -->
 
-        </ul>
-        <h3 class="active logo text-muted"><a ng-href="#" class='glyphicon glyphicon-leaf'></a></h3>
+      <!--   </ul> -->
+ <!--        <h3 class="active logo text-muted"><a ng-href="#" class='glyphicon glyphicon-leaf'></a></h3>
         <h3 class="navSpacing">-</h3>
-      </div>
+      </div> -->
 
       <div ng-view="" class="mainElement"></div>
     
-      <div class="footer">
+    <!--   <div class="footer">
         <p> Everyone loves footers </p>
       </div>
-    </div>
+    </div> -->
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -77,7 +77,7 @@
     <script src="../bower_components/es5-shim/es5-shim.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/json3/lib/json3.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<!--     // <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -92,11 +92,13 @@
     <script src="scripts/controllers/artController.js"></script>
     <script src="scripts/controllers/mainController.js"></script>
     <script src="scripts/controllers/about.js"></script>
+    <script src ="scripts/controllers/artRecommend.js"></script>
     <script src="scripts/controllers/searchResultsController.js"></script>
     <script src="scripts/controllers/userPageController.js"></script>
     <script src="scripts/services/keywordSearchService.js"></script>
     <script src="scripts/services/artServices.js"></script>
     <script src="scripts/services/userServices.js"></script>
     <script src="scripts/services/likebuttonService.js"></script>
+  
   </body>
 </html>
