@@ -1,10 +1,4 @@
-'use strict';
-
-/*
- * Main module of the application.
- */
-angular
-  .module('dangerousWrenchApp', [
+angular.module('dangerousWrenchApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
