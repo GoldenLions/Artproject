@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 'use strict';
 
 /*
@@ -6,10 +5,6 @@
  */
 
  angular.module('dangerousWrenchApp', ['ionic','ngAnimate',
-=======
-angular.module('dangerousWrenchApp', [
-    'ngAnimate',
->>>>>>> 9e4f13518da3daf5e467f127ff082a783f37b7f3
     'ngCookies',
     'ngResource',
     'ngRoute',
