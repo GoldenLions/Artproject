@@ -1,63 +1,56 @@
 <!DOCTYPE html>
-<html class="no-js" style="height:100%">
+<html>
   <head>
     <meta charset="utf-8">
     <title></title>
    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
- 
+
     <!-- Styles / fonts -->
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet"/>
-   
+    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"/> -->
+
     <link rel="stylesheet" type="text/css" href="styles/fonts.css" />
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
      <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="cordova.js"></script>
   </head>
   <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7">
- 
-    <div class="mainElement">
-      <div class='header'>
-        <ul class="nav nav-pills pull-right">
+    <div class="page-wrap">
+      <div class='navbar navbar-default' role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle" href="" data-toggle="dropdown">LOG IN <strong class="caret"></strong></a>
-            <div class="dropdown-menu">
-            <form action="/login" method="post">
-              <input class="dropdown-input" type="text" name="username" placeholder="Username"/>
-              <input class="dropdown-input" type="password" name="password" placeholder="Password"/>
-              <input class="btn btn-primary entryButton" type="submit" value="LOG IN" />
-            </form>
-            </div>
-          </li>
+            <a ng-href="#" class="navbar-brand">Art Safari</a>
+          </div>
 
-          <li class="divider-vertical"></li>
-          
-          <li class="dropdown">
-            <a class="dropdown-toggle" href="" data-toggle="dropdown">SIGN UP <strong class="caret"></strong></a>
-            <div class="dropdown-menu dropdown-menu-right-aligned">
-            <form action="/signup" method="post" accept-charset="UTF-8">
-              <input class="dropdown-input" type="text" name="signup_username" placeholder="Username"/>
-              <input class="dropdown-input" type="password" name="signup_password" placeholder="Password"/>
-              <input class="btn btn-primary entryButton" type="submit" name="commit" value="SIGN UP" />
-            </form>
-            </div>
-          </li>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-href="/#/search">Search</a></li>
+              <li><a href="">Browse</a></li>
+              <li><a href="">Your Likes</a></li>
+            </ul>
+          </div>
 
-        </ul>
-        <h3 class="active logo text-muted"><a ng-href="#" class='glyphicon glyphicon-leaf'></a></h3>
-        <h3 class="navSpacing">-</h3>
+        </div>
       </div>
 
-      <div ng-view="" class="mainElement"></div>
-    
-      <div class="footer">
-        <p> Everyone loves footers </p>
-      </div>
+      <div ng-view=""></div>
     </div>
+
+    <footer>
+      <div class="container">
+        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lamm, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
+        <div class="clearfix"></div>
+      </div>
+    </footer>
 
 
     <!-- build:js(.) scripts/vendor.js
@@ -66,7 +59,7 @@
     <script src="../bower_components/es5-shim/es5-shim.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/json3/lib/json3.js"></script>
-<!--     // <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
     <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -80,7 +73,6 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/artController.js"></script>
     <script src="scripts/controllers/mainController.js"></script>
-    <script src="scripts/controllers/about.js"></script>
     <script src ="scripts/controllers/artRecommend.js"></script>
     <script src="scripts/controllers/searchResultsController.js"></script>
     <script src="scripts/controllers/userPageController.js"></script>
@@ -88,7 +80,7 @@
     <script src="scripts/services/artServices.js"></script>
     <script src="scripts/services/userServices.js"></script>
     <script src="scripts/services/likebuttonService.js"></script>
-  
+
   </body>
 
 </html>
