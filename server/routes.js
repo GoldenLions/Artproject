@@ -1,7 +1,9 @@
 //establish a connection to the database
 var neo4j = require('neo4j');
 var passport = require('./passport-config.js')
-var db = new neo4j.GraphDatabase('http://app29028125:ZcUY4iYVR6P8MKPj1Z5c@app29028125.sb02.stations.graphenedb.com:24789');
+// var db = new neo4j.GraphDatabase('http://app29028125:ZcUY4iYVR6P8MKPj1Z5c@app29028125.sb02.stations.graphenedb.com:24789');
+var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
+
 var utils = require('./utils.js');
 
 module.exports = function(app){
@@ -34,7 +36,6 @@ module.exports = function(app){
     db.query('MATCH (n:Work) WHERE id(n)='+ pid +' RETURN n', function(err, data) {
       if (err) console.log(err);
       data = utils.makeData(data, 'n');
-      data = utils.appendUrl(data);
       data = data[0];
       db.query('MATCH (a:Work)-[r:HAS_FEATURE]->(n:Feature) WHERE id(a)=({id}) RETURN n', data, function(err, features) {
         if (err) console.log(err);
@@ -74,7 +75,6 @@ module.exports = function(app){
     db.query('MATCH (n:User {username: ({username})})-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
       if (err) console.log(err);
       var likesObj = utils.makeData(data, 'm');
-      likesObj = utils.appendUrl(likesObj);
       likesObj = JSON.stringify({results: likesObj});
       res.end(likesObj);
     })
@@ -86,12 +86,18 @@ module.exports = function(app){
     var searchterms = searchterms.split(' ');
     // var propertyKeys = [title, dates, image, name, type, artist, value]
     var query = [];
-    query.push('MATCH (n:Work)-[:HAS_FEATURE]-(a:Feature) WHERE ');
+    // query.push('MATCH (n:Work)-[:HAS_FEATURE]-(a:Feature) WHERE ');
+    query.push('MATCH (n:Work) WHERE ');
+
     console.log('SEARCHTERMS=', searchterms);
     for (var i = 0; i < searchterms.length; i++) {
       console.log('searchterm', searchterms[i])
       // for (var k = 0; k < propertyKeys.length; k++)
-      query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
+      // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
+      query.push('(n.title =~ "(?i).*'+ searchterms[i] +
+        '.*" OR n.artist =~ ".*'+ searchterms[i] +
+        '.*")');  
+
       if (i < searchterms.length - 1) {
         query.push(' AND ');
       }
@@ -102,7 +108,6 @@ module.exports = function(app){
     db.query(query, function(err, data) {
       if (err) console.log(err);
       var searchResult = utils.makeData(data, 'n');
-      searchResult = utils.appendUrl(searchResult);
       searchResult = JSON.stringify(searchResult);
       res.end(searchResult);
     })
@@ -120,8 +125,3 @@ module.exports = function(app){
   })
   
 };
-
-
-
-
-
