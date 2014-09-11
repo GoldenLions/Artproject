@@ -91,7 +91,7 @@ var testEngine = function(file,write) {
 // convertToUnique('medium.json','medium');
 // convertToUnique(['medium.json','title.json','artist.json'],['medium','title','artist']);
 // JSON.parse(fs.)
-uniqueTerms('unique-medium-title-artist.json')
+// uniqueTerms('unique-medium-title-artist.json')
 
 // testTrie('unique-title.json');
 // testEngine('unique-title.json');
