@@ -1,3 +1,9 @@
+
+
+// Trie:
+// An uncompressed prefix tree implementation. The underlying data structure for the 
+// autocomplete engine.
+// --------------------------------------------------------------------------------------
 var Trie = function() {
   this.children = {};
   this.isWordEnd = false;
@@ -53,12 +59,20 @@ Trie.prototype.complete = function(partial) {
 Trie.prototype.print = function() {
   return this.complete('');
 };
+// --------------------------------------------------------------------------------------
 
 
-var Engine = function() {
+// Engine:
+// Used to associate autocompleted words with input data. .add() parses the input sentence 
+// into words, storing the sentence in .data with each word as a key. .match() hands a 
+// partial (or completed) word to the .trie a retrieves the data stored at the autocompleted 
+// words stored in .data.
+// --------------------------------------------------------------------------------------
+var Engine = function(data) {
   this.data = [];
   this._map = {};
   this.trie = new Trie();
+  if (data) this.add(data);
 };
 Engine.prototype.add = function(data) {
   data = data instanceof Array ? data : [data];
@@ -105,7 +119,7 @@ Engine.prototype.match = function(partials) {
   }
   return matchIntersection;
 };
-
+// --------------------------------------------------------------------------------------
 
 
 module.exports.Engine = Engine;
