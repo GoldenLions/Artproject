@@ -486,3 +486,32 @@ body {
   }
 }
 /**/
+.wide-as-needed {
+  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.scroll { 
+  min-width: 100%;
+}
+.bar.bar-loading {
+  display: block;
+  height: 24px;
+  
+  /* starts right below a normal header */
+  top: 44px;
+  
+  /* make the text centered vertically and horizontally */
+  text-align: center;
+  padding: 0;
+  line-height: 24px;
+
+  /* transition 'sliding down' (check below)*/
+  -webkit-transition: 200ms all;
+}
+
+.selected-class-name {
+  opacity: 0.4;
+}
+
