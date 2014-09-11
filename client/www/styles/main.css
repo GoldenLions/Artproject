@@ -8,6 +8,7 @@ html, body {
 
 body {
   font-family: 'Lusitana', serif;
+  color:#16161E;
 }
 
 .one-whole {
@@ -65,8 +66,9 @@ body {
 }
 
 .navbar {
-
-  background: #FFF;
+  font-weight: 600;
+  background-color: rgba(255,255,255,0.5);
+  /*background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,1));*/
   color: #FFF;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -105,12 +107,31 @@ body {
   background-color: #FFF;
 }
 
+.sign-in {
+  background: url('http://www.tate.org.uk/art/images/work/N/N04/N04103_10.jpg') no-repeat center center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.sign-in .center-block {
+  margin-top: 30%;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 50px;
+}
+
 footer {
+  font-weight: 600;
   width: 100%;
   font-family: 'Open Sans Condensed', sans-serif;
   padding: 20px 0;
   font-size: 15px;
-  background: #FFF;
+  background-color: rgba(255,255,255,0.5);
+  /*background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));*/
   color: #16161E;
   text-transform: uppercase;
   letter-spacing: 1px;
