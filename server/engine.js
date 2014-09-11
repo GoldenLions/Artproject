@@ -67,7 +67,7 @@ Engine.prototype.add = function(data) {
   for (var i = 0,len_i = data.length; i < len_i; i++) {
     datum = data[i];
     id = this.data.push(datum) - 1;
-    words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)]/g,'').split(' ');
+    words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
     for (var j = 0, len_j = words.length; j < len_j; j++) {
       word = words[j];
       if (word.length > 2 || parseInt(word)) {
