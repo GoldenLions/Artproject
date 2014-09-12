@@ -35,7 +35,14 @@ button {
 button.facebook {
   background-color: #3B5998;
   color: #FFF;
-  padding-left:40px;
+  padding: 10px 20px;
+  margin-top:10px;
+}
+
+button.facebook i{
+  border-right: 1px solid #FFF;
+  padding-right:10px;
+  margin-right: 10px;
 }
 
 .one-whole {
@@ -81,7 +88,7 @@ button.facebook {
   display: block;
 }
 
-.page-wrap {
+/*.page-wrap {
   min-height: 100%;
   margin-bottom: -60px;
 }
@@ -89,7 +96,7 @@ button.facebook {
 .page-wrap:after {
   content: "";
   display: block;
-}
+}*/
 
 .navbar {
   font-weight: 600;
@@ -130,7 +137,7 @@ button.facebook {
 
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #FFF;
+  background-color: #000;
 }
 
 .navbar-form {
@@ -168,9 +175,7 @@ button.facebook {
 }
 */
 .sign-in .center-block {
-  margin-top: 30%;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 50px;
+  margin-bottom: 70px;
 }
 
 .search-result {
