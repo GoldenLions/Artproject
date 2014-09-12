@@ -10,18 +10,23 @@ angular.module('dangerousWrenchApp')
       console.log('hello')
       $scope.userID = userServices.grabUserID()
     };
-
+    $scope.logout = userServices.logout;
   
 
     //generateUserLikes is the factory function that queries
     //for a specific users 'liked' art
     $scope.displayUserLikes = userServices.generateUserLikes;
 
+    console.log('likeesss', userServices.generateUserLikes())
+
     // $scope.userID = userServices.userName
     console.log('thishtishtihsit',$scope.userID)
     $scope.displayUserLikes($scope.username)
       .then(function(data) {
+
         $scope.userLikesResults = data.data.results;
+        console.log('user likes results', data.data.results)
+
       })
       .catch(function(){
         console.log('Failed to find users likes :|')

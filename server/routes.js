@@ -6,15 +6,15 @@ var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
 
 var utils = require('./utils.js');
 
-module.exports = function(app) {
+module.exports = function(app){
 
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/api/painting', function(req, res) {
+  app.get('/api/painting', function(req, res){
     //get painting data
     res.end(data);
-  });
+  })
 
   app.post('/loginSignup', function(req, res){
     var params = {username: req.body.username};
@@ -26,6 +26,7 @@ module.exports = function(app) {
               console.log('successfully created',req.body.username);
               // res.redirect('/recommendation');
               // res.end('createdUser');
+              res.redirect('/')
             })
           } else {
             // res.end(JSON.stringify(['userExists',req.body.username]));
@@ -33,32 +34,14 @@ module.exports = function(app) {
 
           }
         })
-  });
-
-  app.get('/api/autocomplete*', function(req, res) {
-    console.log('GET /api/autocomplete',req.query)
-    var query = req.query.q
-    utils.autocomplete(query, function(result) {
-      res.end(JSON.stringify(result));
-    });
-  });
-
-  app.post('/signup', function(req, res){
-    var params = {username: req.body.signup_username, password: req.body.signup_password};
-    db.query('CREATE (n:User { username: ({username}), password: ({password}) })', params, function(err){
-      if(err) { console.log(err); }
-      res.redirect('/');
-    })
-  });
+  })
 
   app.post('/login',function(req, res){
     console.log('sending you to homepage/',req.body.username);
     // res.redirect('/#/homepage/' + req.body.username);
-
+    res.writeHead(303,{location: '/recommendation'});
+    res.end;
   })
-
-
-
 
   //needs s3
   app.post('/generateArtInfo', function(req, res) { 
@@ -75,7 +58,7 @@ module.exports = function(app) {
         res.end(dataObject);
       })
     })
-  });
+  })
 
   // Generate recommendations based on the likes of other users who like things that you like.
   // If  there aren't any users or likes, then there there aren't going to be any recommendations.
@@ -98,7 +81,7 @@ module.exports = function(app) {
         res.end(dataObject);
       })
     })
-  });
+  })
 
   // Generate reccomendations based on other works that artist created.
   app.post('/generateArtistRecommendations', function(req, res) {
@@ -161,7 +144,7 @@ module.exports = function(app) {
       likesObj = JSON.stringify({results: likesObj});
       res.end(likesObj);
     })
-  });
+  })
 
   // Searched title and artist name for a keyword
   app.post('/KeywordSearch', function(req, res) {
@@ -173,18 +156,24 @@ module.exports = function(app) {
     query.push('MATCH (n:Work) WHERE ');
 
     console.log('SEARCHTERMS=', searchterms);
-    for (var i = 0; i < searchterms.length; i++) {
-      console.log('searchterm', searchterms[i])
-      // for (var k = 0; k < propertyKeys.length; k++)
-      // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
-      query.push('(n.title =~ "(?i).*'+ searchterms[i] +
-        '.*" OR n.artist =~ ".*'+ searchterms[i] +
-        '.*")');  
+    // for (var i = 0; i < searchterms.length; i++) {
+    //   console.log('searchterm', searchterms[i])
+    //   // for (var k = 0; k < propertyKeys.length; k++)
+    //   // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
+    //   query.push('(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*'
+    //     '.*" OR n.artist =~ ".*'+ searchterms[i] +
+    //     '.*")');  
 
-      if (i < searchterms.length - 1) {
-        query.push(' AND ');
-      }
-    }
+    //   if (i < searchterms.length - 1) {
+    //     query.push(' AND ');
+    //   }
+    // }
+
+     query.push('(n.title =~ ".*\\b'+ searchterms + '\\b.*' +
+    ' OR n.title =~ ".*\\b'+ searchterms + '\\b.*' +  
+    ' OR n.medium =~ ".*\\b'+ searchterms + '\\b.*' +  
+    );  
+
     query.push(' return distinct n limit 1000');
     query = query.join('');
     console.log(query)
@@ -196,7 +185,7 @@ module.exports = function(app) {
 
       res.end(searchResult);
     })
-  });
+  })
 
   // when user clicks like, incretment the like
   app.post('/like', function(req, res){
@@ -212,5 +201,8 @@ module.exports = function(app) {
       res.end();
       console.log(res.end())
     })
-  });
+  })
+
+
+  
 };
