@@ -37,11 +37,11 @@
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when ('/search', {
+      .when ('/search/:user', {
         templateUrl: 'views/search.html',
         controller: 'MainCtrl'
       })
-      .when ('/search-results', {
+      .when ('/search-results/:user', {
         templateUrl: 'views/search-results.html',
         controller: 'SearchResultsCtrl'
       })
@@ -53,7 +53,7 @@
         templateUrl: 'views/userPageView.html',
         controller: 'UserController'
       })
-      .when('/recommendation', {
+      .when('/recommendation/:user', {
         templateUrl: 'views/recommendation.html',
         controller: 'UserRecommend'
       })

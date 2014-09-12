@@ -44,7 +44,9 @@ angular.module('dangerousWrenchApp')
           data: username 
         }) 
       },
-
+      grabUserID: function(){
+        return userServices.userName;
+      },
       /////////////////////////////////////
       //Facebook Authentication
       /////////////////////////////////////
