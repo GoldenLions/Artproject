@@ -1,5 +1,3 @@
-
-
 // Trie:
 // An uncompressed prefix tree implementation. The underlying data structure for the 
 // autocomplete engine.
@@ -79,7 +77,7 @@ Engine.prototype.add = function(data) {
   var datum, id;
   var word, words;
   for (var i = 0,len_i = data.length; i < len_i; i++) {
-    datum = data[i];
+    datum = data[i].replace(/�/g,'');
     id = this.data.push(datum) - 1;
     words = datum.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
     for (var j = 0, len_j = words.length; j < len_j; j++) {

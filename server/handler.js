@@ -6,15 +6,15 @@ var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
 
 var utils = require('./utils.js');
 
-module.exports = function(app){
+module.exports = function(app) {
 
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/api/painting', function(req, res){
+  app.get('/api/painting', function(req, res) {
     //get painting data
     res.end(data);
-  })
+  });
 
   app.post('/loginSignup', function(req, res){
     var params = {username: req.body.username};
@@ -34,14 +34,30 @@ module.exports = function(app){
 
           }
         })
-  })
+  });
+
+  app.get('/api/autocomplete*', function(req, res) {
+    console.log('GET /api/autocomplete',req.query)
+    var query = req.query.q
+    utils.autocomplete(query, function(result) {
+      res.end(JSON.stringify(result));
+    });
+  });
+
+  app.post('/signup', function(req, res){
+    var params = {username: req.body.signup_username, password: req.body.signup_password};
+    db.query('CREATE (n:User { username: ({username}), password: ({password}) })', params, function(err){
+      if(err) { console.log(err); }
+      res.redirect('/');
+    })
+  });
 
   app.post('/login',function(req, res){
     console.log('sending you to homepage/',req.body.username);
     // res.redirect('/#/homepage/' + req.body.username);
     res.writeHead(303,{location: '/recommendation'});
     res.end;
-  })
+  });
 
   //needs s3
   app.post('/generateArtInfo', function(req, res) { 
@@ -58,7 +74,7 @@ module.exports = function(app){
         res.end(dataObject);
       })
     })
-  })
+  });
 
   //needs s3
   app.post('/generateRecommendations', function(req, res) {
@@ -77,7 +93,7 @@ module.exports = function(app){
         res.end(dataObject);
       })
     })
-  })
+  });
 
 
   //needs s3
@@ -92,7 +108,7 @@ module.exports = function(app){
       likesObj = JSON.stringify({results: likesObj});
       res.end(likesObj);
     })
-  })
+  });
 
   // Searched title and artist name for a keyword
   app.post('/KeywordSearch', function(req, res) {
@@ -125,7 +141,7 @@ module.exports = function(app){
       searchResult = JSON.stringify(searchResult);
       res.end(searchResult);
     })
-  })
+  });
 
   // when user clicks like, incretment the like
   app.post('/like', function(req, res){
@@ -140,8 +156,5 @@ module.exports = function(app){
       res.end();
       console.log(res.end())
     })
-  })
-
-
-  
+  });
 };
