@@ -36,7 +36,7 @@ angular.module('dangerousWrenchApp')
     });
     mediums = new Bloodhound({
       remote: {
-        url: '/api/autocomplete?type=mediums&q=%QUERY'
+        url: '/api/autocomplete?type=medium&q=%QUERY'
       },
       limit: 3,
       datumTokenizer: function(d) {
