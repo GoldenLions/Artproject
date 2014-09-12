@@ -33,15 +33,12 @@
 
             <a ng-href="#" class="navbar-brand">Art Safari</a>
           </div>
-
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div ng-controller="MainCtrl">
 
             <ul class="nav navbar-nav navbar-right" ng-show="loggedIn">
-
-
               <li art-search></li>
-              <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
+              <li><a ng-click="goToRecs()">Browse</a></li>
               <li><a ng-click="goToLikes()">Your Likes</a></li>
             </ul>
           </div>
@@ -70,7 +67,7 @@
 
     <footer>
       <div class="container">
-        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lamm, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
+        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lam, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
         <p class="text-center">Artwork courtesy of <a href="https://github.com/tategallery/collection">the Tate Collection.</a></p>
         <div class="clearfix"></div>
       </div>

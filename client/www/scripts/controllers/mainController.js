@@ -8,7 +8,8 @@ angular.module('dangerousWrenchApp')
     };
 
     $scope.logout = userServices.logout;
-    $scope.goToLikes = userServices.goToLikes
+    $scope.goToRecs = userServices.goToRecs;
+    $scope.goToLikes = userServices.goToLikes;
     $scope.checkLoginState = function(){
       console.log('hi')
       userServices.checkLoginState();
