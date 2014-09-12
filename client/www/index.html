@@ -34,7 +34,7 @@
             <a ng-href="#" class="navbar-brand">Art Safari</a>
           </div>
 
-              {{loggedIn}}
+
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div ng-controller="MainCtrl">
 
@@ -42,7 +42,7 @@
 
 
               <li><a ng-href="/#/search/{{userID}}">Search</a></li>
-              <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
+              <li><a ng-click="goToRecs()">Browse</a></li>
               <li><a ng-click="goToLikes()">Your Likes</a></li>
             </ul>
           </div>
