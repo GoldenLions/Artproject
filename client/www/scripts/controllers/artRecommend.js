@@ -3,7 +3,6 @@ var myApp = angular.module('dangerousWrenchApp')
 myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeButton, userServices) {
  
 
-
     var results = userServices.generateArtistRecommendations('demo');
     
     results.then(function(response) {
