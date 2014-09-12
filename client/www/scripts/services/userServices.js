@@ -26,6 +26,19 @@ angular.module('dangerousWrenchApp')
           }
         });
       },
+      goToRec: function(){
+        FB.getLoginStatus(function(response){
+          console.log('inside FB.getLoginSTatus')
+          var userID = JSON.stringify({username: response.authResponse.userID});
+          if(response.status === 'connected'){
+            console.log('path: /homepage'+ response.authResponse.userID)
+            //before sending to likes page, set userName to userID
+            userServices.userName = response.authResponse.userID;
+            console.log('userServices.userName: '+userServices.userName);
+            $location.path('/recommendation')
+          }
+        });
+      },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
         var username = JSON.stringify({username: username});
@@ -40,22 +53,25 @@ angular.module('dangerousWrenchApp')
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateRecommendations', 
+          url: '/generateUserRecommendations', 
           data: username 
         }) 
       },
-
+      grabUserID: function(){
+        return userServices.userName;
+      },
       /////////////////////////////////////
       //Facebook Authentication
       /////////////////////////////////////
       statusChangeCallback: function(response){
         console.log('statusChangeCallback');
-        console.log(response);
+        console.log('thisis the response',response);
         // The response object is returned with a status field that lets the app
         // know the current login status of the person.
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
+          $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
           var userID = JSON.stringify({username: response.authResponse.userID});
@@ -70,6 +86,7 @@ angular.module('dangerousWrenchApp')
         } else if(response.status === 'not_authorized'){
           // The person is logged into Facebook, but not your app.
           document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+          FB.login();
         } else {
           // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
           document.getElementById('status').innerHTML = 'Please log '+'into Facebook.';

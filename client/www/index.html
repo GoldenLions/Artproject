@@ -14,9 +14,12 @@
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
   </head>
-  <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7">
+  <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7" >
+
+ 
+
     <div class="page-wrap">
       <div class='navbar navbar-default' role="navigation">
         <div class="container">
@@ -32,16 +35,21 @@
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div ng-controller="MainCtrl">
             <ul class="nav navbar-nav navbar-right">
-              <li><a ng-href="/#/search">Search</a></li>
-              <li><a href="/#/recommendation">Browse</a></li>
-              <li><a href="/#/homepage/:user">Your Likes</a></li>
+
+              <li><a ng-href="/#/search/{{userID}}">Search</a></li>
+              <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
+              <li><a href="/#/homepage/{{userID}}">Your Likes</a></li>
             </ul>
+          </div>
+         
           </div>
 
         </div>
 
       </div>
+    
 
       <div ng-view=""></div>
     </div>
@@ -60,7 +68,7 @@
 
     <footer>
       <div class="container">
-        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lamm, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
+        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lam, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
         <div class="clearfix"></div>
       </div>
     </footer>
@@ -69,18 +77,19 @@
 
     <!-- build:js(.) scripts/vendor.js
     <!-- bower:js -->
-    <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/es5-shim/es5-shim.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/json3/lib/json3.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../lib/es5-shim/es5-shim.js"></script>
+    <!-- // <script src="../lib/angular/angular.js"></script> -->
+    <script src="../lib/json3/lib/json3.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="lib/angular-resource/angular-resource.js"></script>
-    <script src="lib/angular-cookies/angular-cookies.js"></script>
-    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
-    <script src="lib/angular-animate/angular-animate.js"></script>
-    <script src="lib/angular-touch/angular-touch.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="../lib/angular-resource/angular-resource.js"></script>
+    <script src="../lib/angular-cookies/angular-cookies.js"></script>
+    <script src="../lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../lib/angular-animate/angular-animate.js"></script>
+    <script src="../lib/angular-touch/angular-touch.js"></script>
+    <script src="../lib/angular-route/angular-route.js"></script>
+    <script src="../lib/typeahead.js/dist/typeahead.bundle.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -95,7 +104,8 @@
     <script src="scripts/services/artServices.js"></script>
     <script src="scripts/services/userServices.js"></script>
     <script src="scripts/services/likebuttonService.js"></script>
-
+    <script src="scripts/services/autocompleteService.js"></script>
+  
   </body>
 
 </html>
