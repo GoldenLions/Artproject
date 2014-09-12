@@ -5,6 +5,7 @@
  */
 
  angular.module('dangerousWrenchApp', ['ionic','ngAnimate',
+    'ui.bootstrap',
     'ngCookies',
     'ngResource',
     'ngRoute',
