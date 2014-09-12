@@ -34,9 +34,10 @@
             <a ng-href="#" class="navbar-brand">Art Safari</a>
           </div>
 
+              {{loggedIn}}
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div ng-controller="MainCtrl">
-            <ul class="nav navbar-nav navbar-right" ng-show="userServices.userName">
+            <ul class="nav navbar-nav navbar-right" >
 
               <li><a ng-href="/#/search/{{userID}}">Search</a></li>
               <li><a href="/#/recommendation/{{userID}}">Browse</a></li>

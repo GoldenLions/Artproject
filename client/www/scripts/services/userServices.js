@@ -10,6 +10,7 @@ angular.module('dangerousWrenchApp')
         version    : 'v2.1' // use version 2.1
       });
     }
+    console.log('userServices')
 
     var userServices = {
       userName: null,
@@ -58,6 +59,7 @@ angular.module('dangerousWrenchApp')
         })
       },
       grabUserID: function(){
+        alert(!!userServices.userName)
         return userServices.userName;
       },
       /////////////////////////////////////
@@ -71,6 +73,8 @@ angular.module('dangerousWrenchApp')
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
+          userServices.userName = response.authResponse.userID;
+          console.log('userName', userServices.userName)
           $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
