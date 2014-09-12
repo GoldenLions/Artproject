@@ -1,6 +1,6 @@
 var myApp = angular.module('dangerousWrenchApp')
 
-myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate) {
+myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeButton) {
  
     $scope.items = [
     { id: 1, album: 'Lady and the Ermin', artist: 'Leonardo Da Vinci', image:"http://upload.wikimedia.org/wikipedia/commons/e/ed/Dama_z_gronostajem.jpg",like:0},
@@ -15,15 +15,15 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate) {
   ]
 
 
-
- $scope.selectedIndex = [];
+  $scope.selectedIndex = [];
+  
   $scope.itemClicked = function ($index) {
-    if($scope.selectedIndex.indexOf($index)===-1){
-      $scope.selectedIndex.push($index)
-      $scope.items[$index].like =true; 
-      console.log($scope.items[$index].image)
-    }
-}
+      console.log($index);
+      $scope.selectedIndex.push($index);
+
+      likeButton.like({username: "demo", imageUrl: $scope.items[$index].image });
+  }
+
 
   $scope.toggleLeft = function() {
         $ionicSideMenuDelegate.toggleLeft();

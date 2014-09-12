@@ -4,7 +4,7 @@
 
 <ion-content overflow-scroll="true" >
      <div  class="wide-as-needed">     
-	   <img ion-checkmark ng-repeat="item in items |  limitTo: 3" ng-class="{ 'selected-class-name':selectedIndex.indexOf($index)!==-1}"
+	   <img ion-checkmark ng-repeat="item in items |  limitTo: 20" ng-class="{ 'selected-class-name':selectedIndex.indexOf($index)!==-1}"
              ng-click="itemClicked($index)"  style = "width: 350px;height:390px" ng-src="{{item.image}}" />
              <div check-icon="UsercommitData"></div>
 	</div>
