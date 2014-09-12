@@ -187,7 +187,6 @@ module.exports = function(app) {
 
     //if search term has quotes around it, search for the entire phrase
     if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
-          var searchterms = searchterms.split(' ');
 
       // remove first and last quotes
       searchterms = searchterms.substring(1, searchterms.length-1)
