@@ -65,6 +65,7 @@ angular.module('dangerousWrenchApp')
             data: userID
           })
           console.log('your userID is ' + response.authResponse.userID)
+          userServices.userName = response.authResponse.userID;
           ////////////////////////////////////////////////////////////
         } else if(response.status === 'not_authorized'){
           // The person is logged into Facebook, but not your app.
