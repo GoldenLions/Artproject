@@ -2,24 +2,16 @@
 <h1 class="title">Art Recommendations</h1>
 </ion-header-bar>
 
-<ion-content>
-  
-  <div class="list">
- 
-        <div ng-repeat="item in items" 
-         class="item item-thumbnail-right">
-            <ion-checkbox >
-            <img ng-src="{{ item.image }}">
-            <h2>{{ item.album }}</h2>
-            <h4>{{ item.artist }}</h4>
-        </div>
-
-    </ion-checkbox>
-   
-</div>
 
 
+<ion-content overflow-scroll="true" >
+     <div  class="wide-as-needed">     
+	   <img ion-checkmark ng-repeat="item in items" ng-class="{ 'selected-class-name':selectedIndex.indexOf($index)!==-1}"
+             ng-click="itemClicked($index)"  style = "width: 350px;height:390px" ng-src="{{item.image}}" />
+             <div check-icon="UsercommitData"></div>
+	</div>
 </ion-content>
+	 
 
 
     

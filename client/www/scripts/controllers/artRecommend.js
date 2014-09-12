@@ -1,6 +1,6 @@
-angular.module('dangerousWrenchApp')
+var myApp = angular.module('dangerousWrenchApp')
 
-.controller('UserRecommend', function ($scope) {
+myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeButton) {
  
     $scope.items = [
     { id: 1, album: 'Lady and the Ermin', artist: 'Leonardo Da Vinci', image:"http://upload.wikimedia.org/wikipedia/commons/e/ed/Dama_z_gronostajem.jpg"},
@@ -13,6 +13,25 @@ angular.module('dangerousWrenchApp')
     { id: 8, album: 'Calling of Sain Matthew', artist: 'Caravaggio', image:"http://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Caravaggio%2C_Michelangelo_Merisi_da_-_The_Calling_of_Saint_Matthew_-_1599-1600_%28hi_res%29.jpg/640px-Caravaggio%2C_Michelangelo_Merisi_da_-_The_Calling_of_Saint_Matthew_-_1599-1600_%28hi_res%29.jpg"}
 
   ]
+
+      $scope.selectedIndex = [];
   
+  $scope.itemClicked = function ($index) {
+      console.log($index);
+      $scope.selectedIndex.push($index);
+
+      likeButton.like({username: "demo", imageUrl: $scope.items[$index].image });
+
+
+      // console.log(selectedIndex.indexOf($index)!==-1)
+
+    }
+
+  $scope.toggleLeft = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
+    
     
 })
+
+

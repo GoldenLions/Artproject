@@ -5,6 +5,7 @@
  */
 
  angular.module('dangerousWrenchApp', ['ionic','ngAnimate',
+    'ui.bootstrap',
     'ngCookies',
     'ngResource',
     'ngRoute',
@@ -35,6 +36,10 @@
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when ('/search', {
+        templateUrl: 'views/search.html',
+        controller: 'MainCtrl'
       })
       .when ('/search-results', {
         templateUrl: 'views/search-results.html',
