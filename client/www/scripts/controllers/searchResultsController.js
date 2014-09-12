@@ -14,6 +14,7 @@ angular.module('dangerousWrenchApp')
         .then(function (response) {
           $scope.allArtData = response.data;
           $scope.totalItems = $scope.allArtData.length;
+          console.log($scope.allArtData)
           console.log($scope.totalItems)
           $scope.pageChanged()
         }, function (error) {

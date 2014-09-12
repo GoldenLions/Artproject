@@ -35,7 +35,14 @@ button {
 button.facebook {
   background-color: #3B5998;
   color: #FFF;
-  padding-left:40px;
+  padding: 10px 20px;
+  margin-top:10px;
+}
+
+button.facebook i{
+  border-right: 1px solid #FFF;
+  padding-right:10px;
+  margin-right: 10px;
 }
 
 .one-whole {
@@ -130,12 +137,22 @@ button.facebook {
 
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #FFF;
+  background-color: #000;
 }
 
 .navbar-form {
   margin-top: 10px;
   font-family: 'Lusitana', serif;
+  width:410px;
+}
+
+.navbar-form .form-group {
+  width: 100%;
+}
+
+.navbar-form .form-group span {
+  /*display: block !important;*/
+  width: 100%;
 }
 
 .navbar-form input {
@@ -143,21 +160,22 @@ button.facebook {
   -webkit-appearance: none;
   outline: none;
   border: 1px solid #CCC;
-  padding: 3px 10px 3px 25px;
+  padding: 3px 10px 3px 10px;
   font-weight: 400;
   font-size: 16px;
+  width:100%;
 }
 
 .navbar-form input:focus {
   border-color: #00CAFF;
 }
 
-.navbar-form .glyphicon {
+/*.navbar-form .glyphicon {
   left: 25px;
   top: 2px;
-}
+}*/
 
-/*.sign-in {
+.sign-in {
   position: absolute;
   width: 100%;
   top: 0;
@@ -165,12 +183,15 @@ button.facebook {
   right: 0;
   bottom: 0;
   z-index: 2;
+  background: url('monet.jpg') no-repeat center center;
+  background-size: cover;
+  color: #FFF;
+  padding-top: 60px;
+
 }
-*/
+
 .sign-in .center-block {
-  margin-top: 30%;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 50px;
+  margin-bottom: 70px;
 }
 
 .search-result {
@@ -267,7 +288,7 @@ footer, .page-wrap:after {
 }
 .tt-suggestion {
     padding: 3px 20px;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
 }
 .tt-suggestion.tt-cursor {
