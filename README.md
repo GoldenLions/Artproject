@@ -26,10 +26,10 @@ ArtProject
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Angular 1.2.23
+- Neo4j 2
+- express 4.8.6
+- Ionic
 
 ## Development
 
