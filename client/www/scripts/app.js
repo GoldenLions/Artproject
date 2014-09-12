@@ -53,7 +53,7 @@
         templateUrl: 'views/userPageView.html',
         controller: 'UserController'
       })
-      .when('/recommendation/:user', {
+      .when('/recommendation', {
         templateUrl: 'views/recommendation.html',
         controller: 'UserRecommend'
       })
