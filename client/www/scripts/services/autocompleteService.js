@@ -1,34 +1,10 @@
 angular.module('dangerousWrenchApp')
   .factory('Autocomplete', [function() {
-    console.log('Autocomplete loaded.');
+    // console.log('Autocomplete loaded.');
     var terms,artists,mediums,titles;
     terms = new Bloodhound({
       prefetch: {
         url: '/json/terms-unique-medium-title-artist.json'
-      },
-      limit: 3,
-      datumTokenizer: function(d) {
-        return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
-      },
-      queryTokenizer: function(q) {
-        return q.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
-      }
-    });
-    artists = new Bloodhound({
-      prefetch: {
-        url: '/json/unique-artist.json'
-      },
-      limit: 3,
-      datumTokenizer: function(d) {
-        return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
-      },
-      queryTokenizer: function(q) {
-        return q.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
-      }
-    });
-    mediums = new Bloodhound({
-      prefetch: {
-        url: '/json/unique-medium.json'
       },
       limit: 3,
       datumTokenizer: function(d) {
@@ -46,9 +22,33 @@ angular.module('dangerousWrenchApp')
     // So we have to delegate some of this to the server. We still use the Bloodhound 
     // engine for each suggestion type, however, because of its convenient utility functions,
     // like handling the request and response, throttling, etc.
+    artists = new Bloodhound({
+      remote: {
+        url: '/api/autocomplete?type=artist&q=%QUERY'
+      },
+      limit: 3,
+      datumTokenizer: function(d) {
+        return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
+      },
+      queryTokenizer: function(q) {
+        return q.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
+      }
+    });
+    mediums = new Bloodhound({
+      remote: {
+        url: '/api/autocomplete?type=mediums&q=%QUERY'
+      },
+      limit: 3,
+      datumTokenizer: function(d) {
+        return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
+      },
+      queryTokenizer: function(q) {
+        return q.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
+      }
+    });
     titles = new Bloodhound({
       remote: {
-        url: '/api/autocomplete?q=%QUERY'
+        url: '/api/autocomplete?type=title&q=%QUERY'
       },
       limit: 3,
       datumTokenizer: function(d) {
@@ -72,7 +72,7 @@ angular.module('dangerousWrenchApp')
      }   
   }])
   .directive('typeahead', ['Autocomplete',function(Autocomplete) {
-    console.log('typeahead loaded.')
+    // console.log('typeahead loaded.')
     return {
       restrict: 'C',
       link: function(scope, element, attrs) {
@@ -113,8 +113,9 @@ angular.module('dangerousWrenchApp')
         }
         );
 
-        searchbar.on('typeahead:autocomplete typeahead:selected',function(e) {
+        searchbar.on('typeahead:autocompleted typeahead:selected',function(e) {
           angular.element(this).controller( 'ngModel' ).$setViewValue( searchbar.typeahead('val') );
+          searchbar.typeahead('close');
         });
       }
     }
