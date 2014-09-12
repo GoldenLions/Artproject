@@ -485,7 +485,8 @@ body {
     padding-right: 0;
   }
 }
-/**/
+/* This is for scrolling paintings horizontally*/
+
 .wide-as-needed {
   overflow: auto;
   overflow-x: scroll;
