@@ -145,7 +145,7 @@ module.exports = function(app) {
   })
 
 
-  // Fetches the items that the user likes
+  // Fetches all items that the user likes
   app.post('/generateUserLikes', function(req, res) {
     console.log('POST show user likes')
 
@@ -163,23 +163,21 @@ module.exports = function(app) {
     })
   });
 
-  // Searched title and artist name for a keyword
+  // Searched  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
     var searchterms = req.body.searchterms;
     var searchterms = searchterms.split(' ');
-    // var propertyKeys = [title, dates, image, name, type, artist, value]
     var query = [];
-    // query.push('MATCH (n:Work)-[:HAS_FEATURE]-(a:Feature) WHERE ');
     query.push('MATCH (n:Work) WHERE ');
 
     console.log('SEARCHTERMS=', searchterms);
     for (var i = 0; i < searchterms.length; i++) {
-      console.log('searchterm', searchterms[i])
-      // for (var k = 0; k < propertyKeys.length; k++)
-      // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
-      query.push('(n.title =~ "(?i).*'+ searchterms[i] +
-        '.*" OR n.artist =~ ".*'+ searchterms[i] +
-        '.*")');  
+
+      query.push(
+        '(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
+        ' OR n.medium =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
+        ' OR n.artist =~ ".*\\b'+ searchterms[i] +'\\b.*" )'
+      );  
 
       if (i < searchterms.length - 1) {
         query.push(' AND ');
@@ -198,7 +196,7 @@ module.exports = function(app) {
     })
   });
 
-  // when user clicks like, incretment the like
+  // when user clicks like, add like relationship between user and painting
   app.post('/like', function(req, res){
     console.log('POST create likes')
 
@@ -213,4 +211,6 @@ module.exports = function(app) {
       console.log(res.end())
     })
   });
+
+
 };
