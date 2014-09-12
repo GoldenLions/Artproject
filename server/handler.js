@@ -37,8 +37,7 @@ module.exports = function(app) {
 
   app.get('/api/autocomplete*', function(req, res) {
     console.log('GET /api/autocomplete',req.query)
-    var query = req.query.q
-    utils.autocomplete(query, function(result) {
+    utils.autocomplete(req.query, function(result) {
       res.end(JSON.stringify(result));
     });
   });
