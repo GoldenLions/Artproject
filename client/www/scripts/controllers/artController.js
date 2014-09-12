@@ -14,7 +14,7 @@ angular.module('dangerousWrenchApp')
     $scope.like = function(){
       var item = {
         username: userServices.userName,
-        imageUrl: $scope.work.url
+        url: $scope.work.url
       }
       console.log(item);
       likeButton.like(item);
