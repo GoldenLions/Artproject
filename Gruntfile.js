@@ -3,10 +3,14 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     autoprefixer: {
-    	single_file: {
-    		src: 'client/www/styles/main.css',
-    		dest: 'client/www/styles/main.css'
-    	}
+    	options: {
+		    browsers: ['last 8 versions']
+		  },
+		  dist: { // Target
+		    files: {
+		      'client/www/styles/main.css': 'client/www/styles/main.css'
+		    }
+		  }
     }
   });
 

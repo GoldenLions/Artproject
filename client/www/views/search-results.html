@@ -1,4 +1,4 @@
-<div class='SearchResultsContainer'>
+<div class='container'>
   <div class='SearchResultsHeader'>
     <form class="SearchResultsForm">
       <input type="text" class="typeahead searchBar searchBarInput" ng-model="searchterms" placeholder="Enter search terms...">
@@ -7,18 +7,20 @@
   </div>
   <div class="clearfix"></div>
   <div class="allSearchResults">
-    <div class='SearchResultsImages' ng-repeat='art in currentPageArtData'>
+    <div class='search-result' ng-repeat='art in currentPageArtData'>
       <a href = "/#/art/{{art.id}}">
-      <img class='resultImage' src='{{art.url}}' max-width="20%" max-height="200">
+      <img class='resultImage half pull-left' src='{{art.url}}' max-width="20%" max-height="200">
       </a>
-      <div class="artInfo">
-          <i>{{art.title}}</i>
-          </br>
-          Artist: {{art.artist}}
+      <div class="art-info half pull-left">
+          <h3>{{art.title}}</h3>
+          <h4>Artist: {{art.artist}}</h4>
+          <h4>Year: {{ art.year }}</h4>
+          <button class="likeButtonClass" ng-click="likeButton.like({{art.id}})">Like</a>
       </div>
+      <div class="clearfix"></div>
     </div>
 
-    <pagination total-items="totalItems" ng-model="currentPage" max-size='10' ng-change="pageChanged()"></pagination>
+    <pagination total-items="totalItems" ng-model="currentPage" max-size='10' ng-change="pageChanged()" ng-show="totalItems"></pagination>
   </div>
 </div>
 
