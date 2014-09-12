@@ -114,17 +114,15 @@ module.exports = function(app){
   })
 
   // when user clicks like, incretment the like
-  app.post('/like/:id', function(req, res){
-    // var params = { id: parseInt(req.params.id), user: parseInt(req.user.id) };
+  app.post('/like', function(req, res){
 
-    var params = { id: req.params.url, user: req.user.username };
+    var params = { url: req.body.imageUrl, username: req.body.username };
 
+    db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
 
-    db.query('MATCH (n:User),(b:Work)\nWHERE id(n)=({user}) AND id(b)=({id})\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
       if (err) console.log(err);
       console.log('like created!');
-      console.log(req.user);
-      console.log(params);
+      // console.log(params);
       res.end();
       console.log(res.end())
     })

@@ -2,25 +2,24 @@ angular.module('dangerousWrenchApp')
 .factory('likeButton', function($http, $q){
 
   var like = function(likeObject){
-    var deferred = $q.defer();
-    var httpPromise = $http({
+
+    var data = JSON.stringify(likeObject);
+
+    console.log('data',data);
+
+    return $http({
       method: 'POST',
-      url: 'like',
-      data: likeObject
+      url: '/like',
+      dataType: 'json',
+      data: data
     });
-
-    httpPromise.then(function(response){
-      deferred.resolve(response);
-    }, function(error) {
-      console.log('like error', error);
-    });
-
-    return deferred.promise;
-
+    
   };
 
   return {
     like: like
   };
 });
+
+
 
