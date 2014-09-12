@@ -76,7 +76,7 @@ angular.module('dangerousWrenchApp')
       /////////////////////////////////////
       statusChangeCallback: function(response){
         console.log('statusChangeCallback');
-        console.log('thisis the response',response);
+        console.log('response:',response);
         // The response object is returned with a status field that lets the app
         // know the current login status of the person.
         if (response.status === 'connected'){
