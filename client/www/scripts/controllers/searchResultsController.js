@@ -4,7 +4,7 @@ angular.module('dangerousWrenchApp')
     $scope.artData = {};
     $scope.currentPage = 1;
     $scope.numPerPage = 10;
-    $scope.totalItems = 00;
+    $scope.totalItems = 0;
     $scope.currentPageArtData = [];
     $scope.allArtData = [];
 
@@ -14,6 +14,7 @@ angular.module('dangerousWrenchApp')
         .then(function (response) {
           $scope.allArtData = response.data;
           $scope.totalItems = $scope.allArtData.length;
+          console.log($scope.totalItems)
           $scope.pageChanged()
         }, function (error) {
           console.log(error);
