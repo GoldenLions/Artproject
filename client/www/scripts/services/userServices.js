@@ -28,6 +28,13 @@ angular.module('dangerousWrenchApp')
           }
         });
       },
+      goToRecs: function(){
+        FB.getLoginStatus(function(response){
+          if(response.status === 'connected'){
+            $location.path('/recommendation');
+          }
+        })
+      },
       goToRec: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
