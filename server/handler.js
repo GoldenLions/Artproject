@@ -190,7 +190,7 @@ module.exports = function(app) {
 
       // remove first and last quotes
       searchterms = searchterms.substring(1, searchterms.length-1)
-      console.log('quoted seartch', searchterms)
+      console.log('quoted search', searchterms)
 
          query.push("(n.title =~ '.*\\\\b" + searchterms + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +')' )
     
