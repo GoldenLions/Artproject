@@ -28,6 +28,13 @@ angular.module('dangerousWrenchApp')
           }
         });
       },
+      goToRecs: function(){
+        FB.getLoginStatus(function(response){
+          if(response.status === 'connected'){
+            $location.path('/recommendation');
+          }
+        })
+      },
       goToRec: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -43,7 +50,7 @@ angular.module('dangerousWrenchApp')
       },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
-        var username = JSON.stringify({username: username});
+        var username = JSON.stringify({username: 'demo'});
         return $http({
           method: 'POST',
           url: '/generateUserLikes',
@@ -51,13 +58,14 @@ angular.module('dangerousWrenchApp')
         })
       },
       //Leftover functionality from James' project
-      generateUserRecommendations: function(username) {
+
+      generateArtistRecommendations: function(username) { 
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateUserRecommendations',
-          data: username
-        })
+          url: '/generateArtistRecommendations', 
+          data: username 
+        }) 
       },
       grabUserID: function(){
         alert(!!userServices.userName)
@@ -126,7 +134,10 @@ angular.module('dangerousWrenchApp')
           userServices.statusChangeCallback(response);
         });
       },
-
+      logout: function(){
+        console.log('loggin out')
+        FB.logout();
+      },
       //Controller will have to call this to initialize Facebook's Javacsript SDK
       fbAsyncInit: function(){
         FB.init({
