@@ -11,5 +11,9 @@ angular.module('dangerousWrenchApp')
       console.log('userIDDDD',$scope.userID)
     };
     $scope.goToLikes = userServices.goToLikes
-    $scope.checkLoginState = userServices.checkLoginState;
+    $scope.checkLoginState = function(){
+      userServices.checkLoginState();
+      $scope.getuserId();
+
+    }
   })
