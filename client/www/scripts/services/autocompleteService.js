@@ -6,6 +6,7 @@ angular.module('dangerousWrenchApp')
       prefetch: {
         url: '/json/terms-unique-medium-title-artist.json'
       },
+      limit: 3,
       datumTokenizer: function(d) {
         return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
       },
@@ -17,6 +18,7 @@ angular.module('dangerousWrenchApp')
       prefetch: {
         url: '/json/unique-artist.json'
       },
+      limit: 3,
       datumTokenizer: function(d) {
         return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
       },
@@ -28,6 +30,7 @@ angular.module('dangerousWrenchApp')
       prefetch: {
         url: '/json/unique-medium.json'
       },
+      limit: 3,
       datumTokenizer: function(d) {
         return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
       },
@@ -47,6 +50,7 @@ angular.module('dangerousWrenchApp')
       remote: {
         url: '/api/autocomplete?q=%QUERY'
       },
+      limit: 3,
       datumTokenizer: function(d) {
         return d.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
       },
@@ -71,11 +75,12 @@ angular.module('dangerousWrenchApp')
     console.log('typeahead loaded.')
     return {
       restrict: 'C',
-      link: function(scope, element) {
-        $(element).typeahead({
+      link: function(scope, element, attrs) {
+        var searchbar = $(element);
+        searchbar.typeahead({
           minLength: 3,
           highlight: true,
-          local: ['water john']
+          hint: true
         },
         {
           name: 'terms',
@@ -107,6 +112,10 @@ angular.module('dangerousWrenchApp')
           }
         }
         );
+
+        searchbar.on('typeahead:autocomplete typeahead:selected',function(e) {
+          angular.element(this).controller( 'ngModel' ).$setViewValue( searchbar.typeahead('val') );
+        });
       }
     }
   }])
