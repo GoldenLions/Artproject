@@ -37,7 +37,8 @@ module.exports = function(app) {
 
   app.get('/api/autocomplete*', function(req, res) {
     console.log('GET /api/autocomplete',req.query)
-    utils.autocomplete(req.query, function(result) {
+    var query = req.query.q
+    utils.autocomplete(query, function(result) {
       res.end(JSON.stringify(result));
     });
   });
@@ -163,11 +164,9 @@ module.exports = function(app) {
   });
 
   // Searched  painting's title, artist, and medium for a keyword
- // Searched  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
     var searchterms = req.body.searchterms;
-  console.log(searchterms);
-  
+
     // var propertyKeys = [title, dates, image, name, type, artist, value]
     var query = [];
     query.push('MATCH (n:Work) WHERE ');
@@ -175,22 +174,22 @@ module.exports = function(app) {
     console.log('SEARCHTERMS=', searchterms);
     for (var i = 0; i < searchterms.length; i++) {
 
-      // query.push(
-      //   '(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.medium =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.artist =~ ".*\\b'+ searchterms[i] +'\\b.*" )'
-      // );  
+      query.push(
+        '(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
+        ' OR n.medium =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
+        ' OR n.artist =~ ".*\\b'+ searchterms[i] +'\\b.*" )'
+      );  
 
-      // if (i < searchterms.length - 1) {
-      //   query.push(' AND ');
-      // }
+      if (i < searchterms.length - 1) {
+        query.push(' AND ');
 
     //if search term has quotes around it, search for the entire phrase
     if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
+          var searchterms = searchterms.split(' ');
 
       // remove first and last quotes
       searchterms = searchterms.substring(1, searchterms.length-1)
-      console.log('quoted search', searchterms)
+      console.log('quoted seartch', searchterms)
 
          query.push("(n.title =~ '.*\\\\b" + searchterms + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +')' )
     
@@ -224,11 +223,8 @@ module.exports = function(app) {
       searchResult = JSON.stringify(searchResult);
 
       res.end(searchResult);
-    } )
-
-  }
-  })
-
+    })
+  });
 
   // when user clicks like, add like relationship between user and painting
   app.post('/like', function(req, res){
