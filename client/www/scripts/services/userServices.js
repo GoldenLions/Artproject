@@ -17,7 +17,7 @@ angular.module('dangerousWrenchApp')
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
-          
+
           if(response.status === 'connected'){
             var userID = JSON.stringify({username: response.authResponse.userID});
             console.log('path: /homepage'+ response.authResponse.userID)
@@ -76,14 +76,13 @@ angular.module('dangerousWrenchApp')
       /////////////////////////////////////
       statusChangeCallback: function(response){
         console.log('statusChangeCallback');
-        console.log('thisis the response',response);
+        console.log('response:',response);
         // The response object is returned with a status field that lets the app
         // know the current login status of the person.
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
           userServices.userName = response.authResponse.userID;
-          console.log('userName', userServices.userName)
           $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
