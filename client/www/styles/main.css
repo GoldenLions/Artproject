@@ -88,7 +88,7 @@ button.facebook i{
   display: block;
 }
 
-/*.page-wrap {
+.page-wrap {
   min-height: 100%;
   margin-bottom: -60px;
 }
@@ -96,7 +96,7 @@ button.facebook i{
 .page-wrap:after {
   content: "";
   display: block;
-}*/
+}
 
 .navbar {
   font-weight: 600;
@@ -143,6 +143,16 @@ button.facebook i{
 .navbar-form {
   margin-top: 10px;
   font-family: 'Lusitana', serif;
+  width:410px;
+}
+
+.navbar-form .form-group {
+  width: 100%;
+}
+
+.navbar-form .form-group span {
+  /*display: block !important;*/
+  width: 100%;
 }
 
 .navbar-form input {
@@ -150,21 +160,22 @@ button.facebook i{
   -webkit-appearance: none;
   outline: none;
   border: 1px solid #CCC;
-  padding: 3px 10px 3px 25px;
+  padding: 3px 10px 3px 10px;
   font-weight: 400;
   font-size: 16px;
+  width:100%;
 }
 
 .navbar-form input:focus {
   border-color: #00CAFF;
 }
 
-.navbar-form .glyphicon {
+/*.navbar-form .glyphicon {
   left: 25px;
   top: 2px;
-}
+}*/
 
-/*.sign-in {
+.sign-in {
   position: absolute;
   width: 100%;
   top: 0;
@@ -172,8 +183,13 @@ button.facebook i{
   right: 0;
   bottom: 0;
   z-index: 2;
+  background: url('monet.jpg') no-repeat center center;
+  background-size: cover;
+  color: #FFF;
+  padding-top: 60px;
+
 }
-*/
+
 .sign-in .center-block {
   margin-bottom: 70px;
 }
