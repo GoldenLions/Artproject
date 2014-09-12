@@ -77,8 +77,6 @@ angular.module('dangerousWrenchApp')
       restrict: 'C',
       link: function(scope, element, attrs) {
         var searchbar = $(element);
-        $(element)
-        $(element)
         searchbar.typeahead({
           minLength: 3,
           highlight: true,
@@ -115,9 +113,9 @@ angular.module('dangerousWrenchApp')
         }
         );
 
-        element.on('autocomplete selected',function(e) {
+        searchbar.on('typeahead:autocomplete typeahead:selected',function(e) {
           console.log(e)
-          scope.searchTermselement.typeahead('val');
+          scope.searchTerms = searchbar.typeahead('val');
           console.log('current search:',scope.searchterms)
         });
       }

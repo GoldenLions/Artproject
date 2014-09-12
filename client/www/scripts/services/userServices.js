@@ -26,6 +26,19 @@ angular.module('dangerousWrenchApp')
           }
         });
       },
+      goToRec: function(){
+        FB.getLoginStatus(function(response){
+          console.log('inside FB.getLoginSTatus')
+          var userID = JSON.stringify({username: response.authResponse.userID});
+          if(response.status === 'connected'){
+            console.log('path: /homepage'+ response.authResponse.userID)
+            //before sending to likes page, set userName to userID
+            userServices.userName = response.authResponse.userID;
+            console.log('userServices.userName: '+userServices.userName);
+            $location.path('/recommendation')
+          }
+        });
+      },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
         var username = JSON.stringify({username: username});
@@ -58,6 +71,7 @@ angular.module('dangerousWrenchApp')
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
+          $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
           var userID = JSON.stringify({username: response.authResponse.userID});

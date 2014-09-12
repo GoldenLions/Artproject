@@ -26,7 +26,6 @@ module.exports = function(app) {
               console.log('successfully created',req.body.username);
               // res.redirect('/recommendation');
               // res.end('createdUser');
-              res.redirect('/')
             })
           } else {
             // res.end(JSON.stringify(['userExists',req.body.username]));
@@ -55,9 +54,11 @@ module.exports = function(app) {
   app.post('/login',function(req, res){
     console.log('sending you to homepage/',req.body.username);
     // res.redirect('/#/homepage/' + req.body.username);
-    res.writeHead(303,{location: '/recommendation'});
-    res.end;
-  });
+
+  })
+
+
+
 
   //needs s3
   app.post('/generateArtInfo', function(req, res) { 
