@@ -76,12 +76,16 @@ module.exports = function(app) {
     })
   });
 
-  //needs s3
-  app.post('/generateRecommendations', function(req, res) {
+  // Generate recommendations based on the likes of other users who like things that you like.
+  // If  there aren't any users or likes, then there there aren't going to be any recommendations.
+  app.post('/generateUserRecommendations', function(req, res) {
+    console.log('generateUserRecommendations')
+
     // 'Person' may have to be replaced with whatever we end up labelling user nodes
     db.query('MATCH (p1:User)-[x:LIKES]->(m:Work)<-[y:LIKES]-(p2:User) WITH SUM(x.rating * y.rating) AS xyDotProduct, SQRT(REDUCE(xDot = 0.0, a IN COLLECT(x.rating) | xDot + a^2)) AS xLength, SQRT(REDUCE(yDot = 0.0, b IN COLLECT(y.rating) | yDot + b^2)) AS yLength, p1, p2 MERGE (p1)-[s:SIMILARITY]-(p2) SET s.similarity = xyDotProduct / (xLength * yLength)', function(err, data) {
       if (err) console.log(err);
       var username = req.body.username;
+      console.log('username', username)
       // m.name may have to be replaced with whatever we end up calling the name property/identifier of a work
       db.query('MATCH (b:User)-[r:LIKES]->(m:Work), (b)-[s:SIMILARITY]-(a:User {username:"'+ username +'"}) WHERE NOT((a)-[:LIKES]->(m)) WITH m, s.similarity AS similarity, r.rating AS rating ORDER BY m.title, similarity DESC WITH m.title AS work, COLLECT(rating)[0..3] AS ratings WITH work, REDUCE(s = 0, i IN ratings | s + i)*1.0 / LENGTH(ratings) AS reco ORDER BY reco DESC RETURN work AS Work, reco AS Recommendation', username, function(err, data) {
         if (err) console.log(err);
@@ -95,8 +99,51 @@ module.exports = function(app) {
     })
   });
 
+  // Generate reccomendations based on other works that artist created.
+  app.post('/generateRecommendations', function(req, res) {
+    console.log('generateRecommendations');
+    var recommendations = [];
+    var results = [];
 
-  //needs s3
+    // get the top artist that the user likes 
+    var params = {username: req.body.username};
+    var cypher ="MATCH (user:User)-[:`LIKES`]->(work:Work)<-[:CREATED_WORK] - (artist:Artist) RETURN user,work.artist as artist, count(artist) as count ORDER BY count DESC LIMIT 1";
+   
+    db.query(cypher, params, function(err, artists){
+      if(err) console.log(err);
+      // console.log(artists);
+
+      // for each artist, get 5 paintings for that artist
+      for(var i = 0; i < artists.length; i++) {
+        var targetArtist = artists[i].artist;
+        // console.log(targetArtist);
+
+        var params2 = {targetArtist: targetArtist};
+        var cypher2 ="MATCH (artist:Artist {name: ({targetArtist})} )-[:`CREATED_WORK`]->(work:Work) RETURN work  LIMIT 20";
+
+        db.query(cypher2, params2, function(err, works){
+          if(err) console.log(err);
+
+          var temp = utils.makeData(works, 'work') ;
+
+          for(var j = 0; j < temp.length; j++) {
+            results.push(temp[j])
+          }
+
+          results = JSON.stringify(results);
+
+          console.log(i, artists.length)
+          console.log('results1' ,results)
+
+          res.end(results)
+
+        })
+      }
+    })
+  })
+
+
+  // Fetches the items that the user likes
   app.post('/generateUserLikes', function(req, res) {
     //may have to change names, etc., based on db format
     //'like' here = edge between usernode and artwork node
@@ -136,9 +183,11 @@ module.exports = function(app) {
     query = query.join('');
     console.log(query)
     db.query(query, function(err, data) {
+
       if (err) console.log(err);
       var searchResult = utils.makeData(data, 'n');
       searchResult = JSON.stringify(searchResult);
+
       res.end(searchResult);
     })
   });

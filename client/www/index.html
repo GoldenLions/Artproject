@@ -16,7 +16,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
   </head>
-  <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7">
+  <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7" >
+
+ 
+
     <div class="page-wrap">
       <div class='navbar navbar-default' role="navigation">
         <div class="container">
@@ -32,16 +35,23 @@
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div ng-controller="MainCtrl">
+               <button ng-click='goToLikes()'>Your Like Page</button>
+              <button ng-click="getuserId();checkLoginState()">Log In via Facebook</button>
+             <h1>"/#hompage/{{userID}}"</h1>
             <ul class="nav navbar-nav navbar-right">
-              <li><a ng-href="/#/search">Search</a></li>
-              <li><a href="">Browse</a></li>
-              <li><a href="">Your Likes</a></li>
+              <li><a ng-href="/#/search/{{userID}}">Search</a></li>
+              <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
+              <li><a href="/#/homepage/{{userID}}">Your Likes</a></li>
             </ul>
+          </div>
+         
           </div>
 
         </div>
 
       </div>
+    
 
       <div ng-view=""></div>
     </div>
