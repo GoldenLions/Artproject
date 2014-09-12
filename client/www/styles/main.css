@@ -11,6 +11,33 @@ body {
   color:#16161E;
 }
 
+a {
+  color: #16161E;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #FD252A;
+}
+
+button {
+  font-size: 21px;
+  font-family: 'Open sans condensed';
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+button.facebook {
+  background-color: #3B5998;
+  color: #FFF;
+  padding-left:40px;
+}
+
 .one-whole {
   width: 100%;
 }
@@ -56,7 +83,6 @@ body {
 
 .page-wrap {
   min-height: 100%;
-  /* equal to footer height */
   margin-bottom: -60px;
 }
 
@@ -68,11 +94,10 @@ body {
 .navbar {
   font-weight: 600;
   background-color: rgba(255,255,255,0.5);
-  /*background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,1));*/
-  color: #FFF;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   font-family: 'Open Sans Condensed', sans-serif;
 }
 
@@ -80,11 +105,12 @@ body {
 .navbar-default .navbar-nav > li > a {
   color: #16161E;
   font-size: 20px;
+  text-decoration: none;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-nav > li > a:hover {
-  color: #0073EB;
+  color: #00CAFF;
 }
 
 
@@ -107,21 +133,52 @@ body {
   background-color: #FFF;
 }
 
-.sign-in {
-  background: url('http://www.tate.org.uk/art/images/work/N/N04/N04103_10.jpg') no-repeat center center;
+.navbar-form {
+  margin-top: 10px;
+  font-family: 'Lusitana', serif;
+}
+
+.navbar-form input {
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  border: 1px solid #CCC;
+  padding: 3px 10px 3px 25px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.navbar-form input:focus {
+  border-color: #00CAFF;
+}
+
+.navbar-form .glyphicon {
+  left: 25px;
+  top: 2px;
+}
+
+/*.sign-in {
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: 2;
 }
-
+*/
 .sign-in .center-block {
   margin-top: 30%;
   background: rgba(255, 255, 255, 0.5);
   padding: 50px;
+}
+
+.search-result {
+  margin-bottom: 20px;
+}
+
+.search-result img{
+  margin-right: 2%
 }
 
 footer {
@@ -157,7 +214,7 @@ footer {
 }
 
 
-.scroll { 
+.scroll {
   min-width: 100%;
 }
 
@@ -165,8 +222,13 @@ footer {
   opacity: 0.4;
 }
 
+footer a {
+  color: #16161E;
+  text-decoration: underline;
+}
+
 footer a:hover {
-  color: #8B8B8B;
+  color: #00CAFF;
 }
 
 footer, .page-wrap:after {
