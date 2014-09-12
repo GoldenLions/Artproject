@@ -43,7 +43,7 @@
         templateUrl: 'views/search.html',
         controller: 'MainCtrl'
       })
-      .when ('/search-results/:user', {
+      .when ('/search-results', {
         templateUrl: 'views/search-results.html',
         controller: 'SearchResultsCtrl'
       })
