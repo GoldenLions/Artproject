@@ -288,7 +288,7 @@ footer, .page-wrap:after {
 }
 .tt-suggestion {
     padding: 3px 20px;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
 }
 .tt-suggestion.tt-cursor {
