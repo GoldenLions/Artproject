@@ -25,3 +25,10 @@ angular.module('dangerousWrenchApp')
       }
     }
   })
+
+  .directive('artSearch', function() {
+    return {
+      restrict: 'A',
+      templateUrl: '../views/search.html'
+    }
+  })
