@@ -157,7 +157,7 @@ button.facebook {
   top: 2px;
 }
 
-.sign-in {
+/*.sign-in {
   position: absolute;
   width: 100%;
   top: 0;
@@ -166,7 +166,7 @@ button.facebook {
   bottom: 0;
   z-index: 2;
 }
-
+*/
 .sign-in .center-block {
   margin-top: 30%;
   background: rgba(255, 255, 255, 0.5);
