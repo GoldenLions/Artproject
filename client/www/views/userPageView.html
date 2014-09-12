@@ -2,13 +2,14 @@
   <div class="centerBanner">
     <h2>My Likes</h2>
   </div>
+
   <div class="clearfix"></div>
   <!-- The left half of the user page displays the users liked photos -->
   <div class="leftAlign">
     <div class="allSearchResults">
       <div class='SearchResultsImages' ng-repeat='result in userLikesResults'>
           <a href = "/#/art/{{result.id}}">
-          <img class='resultImage' src='{{result.url}}' max-width="20%" max-height="200">
+          <img class='resultImage' ng-src='{{result.url}}' style = "width: 350px;height:390px">
           </a>
         <div class="artInfo">
             <i>{{result.title}}</i>
