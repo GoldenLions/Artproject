@@ -114,9 +114,7 @@ angular.module('dangerousWrenchApp')
         );
 
         searchbar.on('typeahead:autocomplete typeahead:selected',function(e) {
-          console.log(e)
-          searchbar.trigger('input')
-          console.log('current search:',scope.searchterms)
+          angular.element(this).controller( 'ngModel' ).$setViewValue( searchbar.typeahead('val') );
         });
       }
     }
