@@ -28,6 +28,8 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
   $scope.toggleLeft = function() {
         $ionicSideMenuDelegate.toggleLeft();
       };
+
+ $scope.userID = "hello"
     
     
 })
