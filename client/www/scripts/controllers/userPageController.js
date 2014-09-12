@@ -11,7 +11,7 @@ angular.module('dangerousWrenchApp')
       console.log('hello')
       $scope.userID = userServices.grabUserID()
     };
-
+    $scope.logout = userServices.logout;
   
 
     //generateUserLikes is the factory function that queries

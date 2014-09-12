@@ -126,7 +126,10 @@ angular.module('dangerousWrenchApp')
           userServices.statusChangeCallback(response);
         });
       },
-
+      logout: function(){
+        console.log('loggin out')
+        FB.logout();
+      },
       //Controller will have to call this to initialize Facebook's Javacsript SDK
       fbAsyncInit: function(){
         FB.init({
