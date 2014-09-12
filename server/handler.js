@@ -165,7 +165,7 @@ module.exports = function(app) {
   // Searched  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
     var searchterms = req.body.searchterms;
-    var searchterms = searchterms.split(' ');
+
     var query = [];
     query.push('MATCH (n:Work) WHERE ');
 
@@ -180,8 +180,35 @@ module.exports = function(app) {
 
       if (i < searchterms.length - 1) {
         query.push(' AND ');
+
+    //if search term has quotes around it, search for the entire phrase
+    if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
+      // remove first and last quotes
+      searchterms = searchterms.substring(1, searchterms.length-1)
+      console.log('quoted seartch', searchterms)
+
+         query.push("(n.title =~ '.*\\\\b" + searchterms + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +')' )
+    
+
+    } else {
+      searchterms = searchterms.split(' ');
+
+      for (var i = 0; i < searchterms.length; i++) {
+        console.log('single searchterm', searchterms[i])
+        // for (var k = 0; k < propertyKeys.length; k++)
+        // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
+
+         query.push("(n.title =~ '.*\\\\b" + searchterms[i] + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms[i] + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms[i] + '\\\\b.*"' +')' )
+
+        if (i < searchterms.length - 1) {
+          query.push(' AND ');
+        }
       }
+      
     }
+
+
+
     query.push(' return distinct n limit 1000');
     query = query.join('');
     console.log(query)
