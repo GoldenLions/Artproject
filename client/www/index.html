@@ -36,7 +36,7 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div ng-controller="MainCtrl">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" ng-show="userServices.userName">
 
               <li><a ng-href="/#/search/{{userID}}">Search</a></li>
               <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
