@@ -3,6 +3,7 @@ angular.module('dangerousWrenchApp')
     return {
       //called on main page.  Appends search term(s) to url and redirects to search results page.
       displayResults: function(data) {
+        console.log('data', data)
         $location.path('/search-results').search('q', data);
       },
 
