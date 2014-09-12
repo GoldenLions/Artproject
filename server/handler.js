@@ -204,32 +204,7 @@ module.exports = function(app) {
       res.end();
       console.log(res.end())
     })
-  })
-
-
-  
-};rr, data) {
-
-      if (err) console.log(err);
-      var searchResult = utils.makeData(data, 'n');
-      searchResult = JSON.stringify(searchResult);
-
-      res.end(searchResult);
-    })
-  })
-
-  // when user clicks like, incretment the like
-  app.post('/like', function(req, res){
-
-    var params = { url: req.body.imageUrl, username: req.body.username };
-
-    db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
-
-      if (err) console.log(err);
-      console.log('like created!');
-      // console.log(params);
-      res.end();
-      console.log(res.end())
-    })
   });
+
+
 };
