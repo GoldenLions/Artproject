@@ -4,12 +4,13 @@ angular.module('dangerousWrenchApp')
     $window.fbAsyncInit = function() {
       FB.init({
         appId      : '817757534922398',
-        cookie     : true,  // enable cookies to allow the server to access 
+        cookie     : true,  // enable cookies to allow the server to access
                             // the session
         xfbml      : true,  // parse social plugins on this page
         version    : 'v2.1' // use version 2.1
       });
     }
+    console.log('userServices')
 
     var userServices = {
       userName: null,
@@ -44,20 +45,21 @@ angular.module('dangerousWrenchApp')
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateUserLikes', 
-          data: username 
+          url: '/generateUserLikes',
+          data: username
         })
       },
       //Leftover functionality from James' project
-      generateUserRecommendations: function(username) { 
+      generateUserRecommendations: function(username) {
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateUserRecommendations', 
-          data: username 
-        }) 
+          url: '/generateUserRecommendations',
+          data: username
+        })
       },
       grabUserID: function(){
+        alert(!!userServices.userName)
         return userServices.userName;
       },
       /////////////////////////////////////
@@ -71,6 +73,8 @@ angular.module('dangerousWrenchApp')
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
+          userServices.userName = response.authResponse.userID;
+          console.log('userName', userServices.userName)
           $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
@@ -107,7 +111,7 @@ angular.module('dangerousWrenchApp')
       fbAsyncInit: function(){
         FB.init({
           appId      : '817757534922398',
-          cookie     : true,  // enable cookies to allow the server to access 
+          cookie     : true,  // enable cookies to allow the server to access
                               // the session
           xfbml      : true,  // parse social plugins on this page
           version    : 'v2.1' // use version 2.1

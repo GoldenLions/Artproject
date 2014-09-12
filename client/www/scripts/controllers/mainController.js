@@ -4,6 +4,7 @@ angular.module('dangerousWrenchApp')
     $scope.displayResults = function() {
       KeywordSearch.displayResults($scope.searchterms);
     };
+    $scope.hello = 'hello'
     // $scope.userID="ahhhhh"
     $scope.getuserId = function(){
       console.log('heldfdsfadslo')

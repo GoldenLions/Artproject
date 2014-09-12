@@ -18,10 +18,10 @@
   </head>
   <body ng-app="dangerousWrenchApp" animation="slide-left-right-ios7" >
 
- 
+
 
     <div class="page-wrap">
-      <div class='navbar navbar-default' role="navigation">
+      <div class='navbar navbar-default' role="navigation" ng-controller="navigationController">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -34,21 +34,23 @@
             <a ng-href="#" class="navbar-brand">Art Safari</a>
           </div>
 
+              {{loggedIn}}
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div ng-controller="MainCtrl">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" >
+
               <li><a ng-href="/#/search/{{userID}}">Search</a></li>
               <li><a href="/#/recommendation/{{userID}}">Browse</a></li>
               <li><a href="/#/homepage/{{userID}}">Your Likes</a></li>
             </ul>
           </div>
-         
+
           </div>
 
         </div>
 
       </div>
-    
+
 
       <div ng-view=""></div>
     </div>
@@ -67,7 +69,8 @@
 
     <footer>
       <div class="container">
-        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lam, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
+        <p class="text-center">Built in 2014 at <a href="http://www.hackreactor.com/">Hack Reactor</a> by Charles Wang, Mike Lamm, Wai-Yin Kwan, Kelly Walker, and Ben Rowles.</p>
+        <p class="text-center">Artwork courtesy of <a href="https://github.com/tategallery/collection">the Tate Collection.</a></p>
         <div class="clearfix"></div>
       </div>
     </footer>
@@ -95,6 +98,7 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/artController.js"></script>
+    <script src="scripts/controllers/navigationController.js"></script>
     <script src="scripts/controllers/mainController.js"></script>
     <script src ="scripts/controllers/artRecommend.js"></script>
     <script src="scripts/controllers/searchResultsController.js"></script>
@@ -104,7 +108,7 @@
     <script src="scripts/services/userServices.js"></script>
     <script src="scripts/services/likebuttonService.js"></script>
     <script src="scripts/services/autocompleteService.js"></script>
-  
+
   </body>
 
 </html>
