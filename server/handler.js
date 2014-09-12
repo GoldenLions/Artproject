@@ -101,13 +101,14 @@ module.exports = function(app) {
   });
 
   // Generate reccomendations based on other works that artist created.
-  app.post('/generateRecommendations', function(req, res) {
-    console.log('generateRecommendations');
+  app.post('/generateArtistRecommendations', function(req, res) {
+    console.log('generateArtistRecommendations');
     var recommendations = [];
     var results = [];
 
     // get the top artist that the user likes 
     var params = {username: req.body.username};
+    // console.log(params)
     var cypher ="MATCH (user:User)-[:`LIKES`]->(work:Work)<-[:CREATED_WORK] - (artist:Artist) RETURN user,work.artist as artist, count(artist) as count ORDER BY count DESC LIMIT 1";
    
     db.query(cypher, params, function(err, artists){
@@ -133,8 +134,8 @@ module.exports = function(app) {
 
           results = JSON.stringify(results);
 
-          console.log(i, artists.length)
-          console.log('results1' ,results)
+          // console.log(i, artists.length)
+          // console.log('results1' ,results)
 
           res.end(results)
 
@@ -146,13 +147,17 @@ module.exports = function(app) {
 
   // Fetches the items that the user likes
   app.post('/generateUserLikes', function(req, res) {
+    console.log('POST show user likes')
+
     //may have to change names, etc., based on db format
     //'like' here = edge between usernode and artwork node
 
     var params = {username: req.body.username}; 
-    db.query('MATCH (n:User {username: ({username})})-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
+    console.log(params)
+    db.query('MATCH (n:User {username: ({username}) })-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
       if (err) console.log(err);
       var likesObj = utils.makeData(data, 'm');
+      // console.log(likesObj)
       likesObj = JSON.stringify({results: likesObj});
       res.end(likesObj);
     })
@@ -195,8 +200,9 @@ module.exports = function(app) {
 
   // when user clicks like, incretment the like
   app.post('/like', function(req, res){
+    console.log('POST create likes')
 
-    var params = { url: req.body.imageUrl, username: req.body.username };
+    var params = { url: req.body.url, username: req.body.username };
 
     db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
 

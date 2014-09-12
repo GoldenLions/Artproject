@@ -18,11 +18,16 @@ angular.module('dangerousWrenchApp')
     //for a specific users 'liked' art
     $scope.displayUserLikes = userServices.generateUserLikes;
 
+    console.log('likeesss', userServices.generateUserLikes())
+
     // $scope.userID = userServices.userName
     console.log('thishtishtihsit',$scope.userID)
     $scope.displayUserLikes($scope.username)
       .then(function(data) {
+
         $scope.userLikesResults = data.data.results;
+        console.log('user likes results', data.data.results)
+
       })
       .catch(function(){
         console.log('Failed to find users likes :|')

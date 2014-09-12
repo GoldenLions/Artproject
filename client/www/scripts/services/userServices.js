@@ -43,7 +43,7 @@ angular.module('dangerousWrenchApp')
       },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
-        var username = JSON.stringify({username: username});
+        var username = JSON.stringify({username: 'demo'});
         return $http({
           method: 'POST',
           url: '/generateUserLikes',
@@ -51,13 +51,14 @@ angular.module('dangerousWrenchApp')
         })
       },
       //Leftover functionality from James' project
-      generateUserRecommendations: function(username) {
+
+      generateArtistRecommendations: function(username) { 
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateUserRecommendations',
-          data: username
-        })
+          url: '/generateArtistRecommendations', 
+          data: username 
+        }) 
       },
       grabUserID: function(){
         alert(!!userServices.userName)
