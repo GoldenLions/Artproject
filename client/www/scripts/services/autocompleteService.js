@@ -89,26 +89,26 @@ angular.module('dangerousWrenchApp')
         },
         {
           name: 'artists',
-          displayKey: function(s) {return s;},
+          displayKey: function(s) {return '"'+s+'"';},
           source: Autocomplete.artists.ttAdapter(),
           templates: {
-            header: '<h3>Artists</h3>'
+            header: '<h4>Artists</h4>'
           }
         },
         {
-          name: 'mediums',
+          name: 'media',
           source: Autocomplete.mediums.ttAdapter(),
-          displayKey: function(s) {return s;},
+          displayKey: function(s) {return '"'+s+'"';},
           templates : {
-            header: '<h3>Mediums</h3>'
+            header: '<h4>Media</h4>'
           }
         },
         {
           name: 'titles',
           source: Autocomplete.titles.ttAdapter(),
-          displayKey: function(s) {return s;},
+          displayKey: function(s) {return '"'+s+'"';},
           templates:{
-            header: '<h3>Titles</h3>'
+            header: '<h4>Titles</h4>'
           }
         }
         );
