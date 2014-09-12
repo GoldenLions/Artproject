@@ -1,7 +1,7 @@
 ArtProject
 ==========
 
-> Pithy project description
+> For this project, we inherited a project that team Dangerous Wrench at Hack Reactor started and added new features to it. The new features we added were facebook login, using ionic to go mobile, a new like feature for paintings, a autocomplete feature when you search for a painting and added more paintings into the database via azure. 
 
 ## Team
 
