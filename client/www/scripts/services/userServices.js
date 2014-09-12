@@ -53,7 +53,7 @@ angular.module('dangerousWrenchApp')
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
-          url: '/generateRecommendations', 
+          url: '/generateUserRecommendations', 
           data: username 
         }) 
       },

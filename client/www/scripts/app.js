@@ -4,7 +4,9 @@
  * Main module of the application.
  */
 
- angular.module('dangerousWrenchApp', ['ionic','ngAnimate',
+ angular.module('dangerousWrenchApp', [
+    'ionic',
+    'ngAnimate',
     'ui.bootstrap',
     'ngCookies',
     'ngResource',
@@ -27,7 +29,7 @@
  })
 
   .config(function ($locationProvider, $routeProvider) {
-    $locationProvider
+    $locationProvider;
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

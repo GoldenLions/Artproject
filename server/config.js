@@ -10,7 +10,6 @@ module.exports = function(app, express){
     saveUninitialized: true
   }));
   app.use(express.static(path.join(__dirname, '../client/www')));
-  app.use(express.static(path.join(__dirname, '../client')));
 
-  require('./routes.js')(app);
+  require('./handler.js')(app);
 }
