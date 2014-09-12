@@ -138,8 +138,31 @@ footer {
   border-top: 1px solid #e7e7e7;
 }
 
-footer a {
-  color: #16161E;
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+/* This is for scrolling paintings horizontally*/
+
+.wide-as-needed {
+  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+
+.scroll { 
+  min-width: 100%;
+}
+
+.selected-class-name {
+  opacity: 0.4;
 }
 
 footer a:hover {
