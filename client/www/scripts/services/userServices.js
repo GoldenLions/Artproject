@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-  .factory('userServices', function ($http,$window) {
+  .factory('userServices', function ($http,$window,$location) {
     //fb.AsyncInit gets called by the SDK library automagically when we insantiate it
     $window.fbAsyncInit = function() {
       FB.init({
@@ -12,6 +12,20 @@ angular.module('dangerousWrenchApp')
     }
 
     var userServices = {
+      userName: null,
+      goToLikes: function(){
+        FB.getLoginStatus(function(response){
+          console.log('inside FB.getLoginSTatus')
+          var userID = JSON.stringify({username: response.authResponse.userID});
+          if(response.status === 'connected'){
+            console.log('path: /homepage'+ response.authResponse.userID)
+            //before sending to likes page, set userName to userID
+            userServices.userName = response.authResponse.userID;
+            console.log('userServices.userName: '+userServices.userName);
+            $location.path('/homepage/'+response.authResponse.userID)
+          }
+        });
+      },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
         var username = JSON.stringify({username: username});
@@ -47,7 +61,7 @@ angular.module('dangerousWrenchApp')
           var userID = JSON.stringify({username: response.authResponse.userID});
           $http({
             method: 'POST',
-            url: '/signup',
+            url: '/loginSignup',
             data: userID
           })
           console.log('your userID is ' + response.authResponse.userID)

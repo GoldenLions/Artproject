@@ -4,5 +4,6 @@ angular.module('dangerousWrenchApp')
     $scope.displayResults = function() {
       KeywordSearch.displayResults($scope.searchterms);
     };
+    $scope.goToLikes = userServices.goToLikes
     $scope.checkLoginState = userServices.checkLoginState;
   })

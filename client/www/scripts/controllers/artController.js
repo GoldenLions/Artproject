@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-  .controller('ArtCtrl', function($scope, $routeParams, likeButton, GenerateArtInfo) {
+  .controller('ArtCtrl', function($scope, $routeParams, likeButton, GenerateArtInfo,userServices) {
     // assign $scope the generate function from the GenerateArtInfo service
     $scope.generate = GenerateArtInfo.generate;
     // then invoke it on the next line, so that $scope.results has data to pass along to the view
@@ -12,6 +12,11 @@ angular.module('dangerousWrenchApp')
         console.log('Failed to generate info!');
       })
     $scope.like = function(){
-      likeButton.like($routeParams.artId);
+      var item = {
+        username: userServices.userName,
+        imageUrl: $scope.work.url
+      }
+      console.log(item);
+      likeButton.like(item);
     }
   });

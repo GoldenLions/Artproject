@@ -1,6 +1,6 @@
 //establish a connection to the database
 var neo4j = require('neo4j');
-var passport = require('./passport-config.js')
+var passport = require('./passport-config.js');
 // var db = new neo4j.GraphDatabase('http://app29028125:ZcUY4iYVR6P8MKPj1Z5c@app29028125.sb02.stations.graphenedb.com:24789');
 var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
 
@@ -16,17 +16,31 @@ module.exports = function(app){
     res.end(data);
   })
 
-  app.post('/signup', function(req, res){
-    var params = {username: req.body.signup_username, password: req.body.signup_password};
-    db.query('CREATE (n:User { username: ({username}), password: ({password}) })', params, function(err){
-      if(err) { console.log(err); }
-      res.redirect('/');
-    })
+  app.post('/loginSignup', function(req, res){
+    var params = {username: req.body.username};
+    console.log('your userID is: ',req.body.username)
+    db.query('MATCH (n:User {username: ({username}) })  RETURN n', params, function(err, results) {
+          if(results.length===0){
+            db.query('CREATE (n:User { username: ({username})})', params, function(err){
+              if(err) { console.log(err); }
+              console.log('successfully created',req.body.username);
+              // res.redirect('/recommendation');
+              // res.end('createdUser');
+              res.redirect('/')
+            })
+          } else {
+            // res.end(JSON.stringify(['userExists',req.body.username]));
+            // res.redirect('/recommendation');
+
+          }
+        })
   })
 
-  app.post('/login', passport.authenticate('local'), function(req, res){
-    console.log(req.user);
-    res.redirect('/#/homepage/' + req.user._data.data.username);
+  app.post('/login',function(req, res){
+    console.log('sending you to homepage/',req.body.username);
+    // res.redirect('/#/homepage/' + req.body.username);
+    res.writeHead(303,{location: '/recommendation'});
+    res.end;
   })
 
   //needs s3
