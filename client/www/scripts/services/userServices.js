@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-  .factory('userServices', function ($http,$window,$location) {
+  .factory('userServices', function ($http,$window,$location,$rootScope) {
     //fb.AsyncInit gets called by the SDK library automagically when we insantiate it
     $window.fbAsyncInit = function() {
       FB.init({
@@ -17,8 +17,9 @@ angular.module('dangerousWrenchApp')
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
-          var userID = JSON.stringify({username: response.authResponse.userID});
+          
           if(response.status === 'connected'){
+            var userID = JSON.stringify({username: response.authResponse.userID});
             console.log('path: /homepage'+ response.authResponse.userID)
             //before sending to likes page, set userName to userID
             userServices.userName = response.authResponse.userID;
@@ -90,11 +91,30 @@ angular.module('dangerousWrenchApp')
         } else if(response.status === 'not_authorized'){
           // The person is logged into Facebook, but not your app.
           document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-          FB.login();
+          FB.login(function(response){
+            FB.getLoginStatus(function(response){
+              console.log('checking status again')
+              userServices.statusChangeCallback(response);
+            });
+          });
         } else {
           // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
           document.getElementById('status').innerHTML = 'Please log '+'into Facebook.';
-          FB.login();
+          FB.login(function(response){
+            console.log(response.status ==='connected')
+            if(response.status === 'connected'){
+              console.log('take me to rec page')
+              userServices.userName = response.authResponse.userID;
+              console.log('username',userServices.userName)
+              $rootScope.$apply(function() {
+
+                      $location.path("/recommendation");
+                      console.log($location.path());
+                    });
+            } else {
+              console.log('try again')
+            }
+          });
         }
       },
 

@@ -6,11 +6,16 @@ angular.module('dangerousWrenchApp')
 
       KeywordSearch.displayResults($scope.searchterms);
     };
+
     $scope.getuserId = function(){
       console.log('heldfdsfadslo')
       $scope.userID = userServices.grabUserID()
       console.log('userIDDDD',$scope.userID)
     };
     $scope.goToLikes = userServices.goToLikes
-    $scope.checkLoginState = userServices.checkLoginState;
+    $scope.checkLoginState = function(){
+      userServices.checkLoginState();
+      $scope.getuserId();
+
+    }
   })
