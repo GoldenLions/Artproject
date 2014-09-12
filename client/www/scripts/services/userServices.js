@@ -52,7 +52,7 @@ angular.module('dangerousWrenchApp')
       /////////////////////////////////////
       statusChangeCallback: function(response){
         console.log('statusChangeCallback');
-        console.log(response);
+        console.log('response:',response);
         // The response object is returned with a status field that lets the app
         // know the current login status of the person.
         if (response.status === 'connected'){
@@ -72,6 +72,7 @@ angular.module('dangerousWrenchApp')
         } else if(response.status === 'not_authorized'){
           // The person is logged into Facebook, but not your app.
           document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+          FB.login();
         } else {
           // The person is not logged into Facebook, so we're not sure if they are logged into this app or not.
           document.getElementById('status').innerHTML = 'Please log '+'into Facebook.';
