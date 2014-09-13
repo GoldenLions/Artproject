@@ -166,31 +166,19 @@ module.exports = function(app) {
  // Searched  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
     var searchterms = req.body.searchterms;
-  console.log(searchterms);
   
     // var propertyKeys = [title, dates, image, name, type, artist, value]
     var query = [];
     query.push('MATCH (n:Work) WHERE ');
 
     console.log('SEARCHTERMS=', searchterms);
-    for (var i = 0; i < searchterms.length; i++) {
-
-      // query.push(
-      //   '(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.medium =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.artist =~ ".*\\b'+ searchterms[i] +'\\b.*" )'
-      // );  
-
-      // if (i < searchterms.length - 1) {
-      //   query.push(' AND ');
-      // }
 
     //if search term has quotes around it, search for the entire phrase
     if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
 
       // remove first and last quotes
       searchterms = searchterms.substring(1, searchterms.length-1)
-      console.log('quoted search', searchterms)
+
 
          query.push("(n.title =~ '.*\\\\b" + searchterms + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +')' )
     
@@ -226,7 +214,7 @@ module.exports = function(app) {
       res.end(searchResult);
     } )
 
-  }
+  
   })
 
 
