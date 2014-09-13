@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-  
+
 .controller('UserController', function ($scope, KeywordSearch, userServices, $routeParams) {
     $scope.test = "hello"
     $scope.searchterms;
@@ -12,9 +12,9 @@ angular.module('dangerousWrenchApp')
       $scope.userID = userServices.grabUserID()
     };
     $scope.logout = userServices.logout;
- 
 
-  
+
+
     //generateUserLikes is the factory function that queries
     //for a specific users 'liked' art
     $scope.displayUserLikes = userServices.generateUserLikes;

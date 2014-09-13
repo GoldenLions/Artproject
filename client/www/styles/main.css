@@ -17,7 +17,7 @@ a {
 }
 
 a:hover {
-  color: #FD252A;
+  color: #00CAFF;
 }
 
 button {
@@ -27,6 +27,7 @@ button {
   text-transform: uppercase;
   padding: 10px 30px;
   -webkit-appearance: none;
+  appearance: none;
   outline: none;
   border: none;
   border-radius: 10px;
@@ -175,6 +176,23 @@ button.facebook i{
   top: 2px;
 }*/
 
+.my-tooltip {
+  font-family: 'Arial', sans-serif;
+  text-decoration: none;
+  background: #00CAFF;
+  border-radius: 50%;
+  font-size: 14px;
+  padding: 2px 7px 2px 7px;
+  bottom: 3px;
+  position: relative;
+  color: white;
+}
+
+.my-tooltip:hover {
+  color:#FFF;
+  text-decoration: none;
+}
+
 .sign-in {
   position: absolute;
   width: 100%;
@@ -298,5 +316,36 @@ footer, .page-wrap:after {
 }
 .tt-suggestion p {
     margin: 0;
+}
+
+.ion-div img{
+  width: 48%;
+
+}
+
+// Overrides ionic layout for desktop
+@media only screen
+and (min-width : 321px) {
+
+}
+
+@media only screen
+and (max-width: 320px) {
+  .container {
+    padding: 0;
+  }
+  .ion-div {
+    width: 350px;
+    height: 390px;
+    display: inline-block;
+  }
+  .ion-div img{
+    width: 100%;
+
+  }
+  .rec-image {
+    width: 350px;
+    height:390px
+  }
 }
 
