@@ -153,7 +153,7 @@ module.exports = function(app) {
 
     var params = {username: req.body.username}; 
     console.log('user likes params', params)
-    db.query('MATCH (n:User {username: ({username}) })-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
+    db.query('MATCH (n:User {username: ({username}) })-[:LIKES {rating: 1}]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
       if (err) console.log(err);
       var likesObj = utils.makeData(data, 'm');
       // console.log(likesObj)
@@ -214,19 +214,41 @@ module.exports = function(app) {
   })
 
 
-  // when user clicks like, add like relationship between user and painting
+  // creates/update like relationship between user and work of art
   app.post('/like', function(req, res){
-    console.log('POST create likes')
-    var params = { url: req.body.url, username: req.body.username };
-    db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
+    console.log('POST create likes');
+    var params = { url: req.body.url, username: req.body.username, rating: req.body.rating };
+    console.log('like params', params);
 
+    // check if there is an existing like relationship between user and artwork
+    var cypher = 'MATCH (n:User {username: ({username}) })-[r:LIKES] -> (b:Work {url: ({url}) })\nreturn r';
+    db.query(cypher, params, function(err, data){
       if (err) console.log(err);
-      console.log('like created!');
-      // console.log(params);
+
+      // if like relationship exists, set new ratings for like
+      if(data.length > 0) {
+        console.log('like exists');
+        cypher = 'MATCH (n:User {username: ({username}) })-[r:LIKES] -> (b:Work {url: ({url}) })\nSET r.rating = ({rating})';
+        db.query( cypher, params, function(err){
+          if (err) console.log(err);
+          console.log('like rating update!');
+        });
+
+      // else if like doesn't exist, create like relationship
+      } else {
+        console.log('like does not exists');
+
+        cypher = 'MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nMERGE (n)-[:LIKES {rating: ({rating}) }]->(b)';
+        db.query(cypher, params, function(err){
+          if (err) console.log(err);
+          console.log('like created!');
+        });
+      }
+
       res.end();
-      console.log(res.end())
-    })
+    });
   });
+
 
 
 };
