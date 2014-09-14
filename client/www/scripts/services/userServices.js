@@ -50,7 +50,7 @@ angular.module('dangerousWrenchApp')
       },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
-        var username = JSON.stringify({username: 'demo'});
+        var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
           url: '/generateUserLikes',

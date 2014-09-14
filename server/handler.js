@@ -152,7 +152,7 @@ module.exports = function(app) {
     //'like' here = edge between usernode and artwork node
 
     var params = {username: req.body.username}; 
-    console.log(params)
+    console.log('user likes params', params)
     db.query('MATCH (n:User {username: ({username}) })-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
       if (err) console.log(err);
       var likesObj = utils.makeData(data, 'm');
