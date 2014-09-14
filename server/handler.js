@@ -197,9 +197,7 @@ module.exports = function(app) {
           query.push(' AND ');
         }
       }
-      
     }
-
 
 
     query.push(' return distinct n limit 1000');
@@ -213,17 +211,13 @@ module.exports = function(app) {
 
       res.end(searchResult);
     } )
-
-  
   })
 
 
   // when user clicks like, add like relationship between user and painting
   app.post('/like', function(req, res){
     console.log('POST create likes')
-
     var params = { url: req.body.url, username: req.body.username };
-
     db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
 
       if (err) console.log(err);
