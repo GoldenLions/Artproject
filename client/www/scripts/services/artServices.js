@@ -9,15 +9,6 @@ angular.module('dangerousWrenchApp')
       })
     };
 
-    var generateRecommendations = function(username) {
-      var data = JSON.stringify({username: username});
-      return $http({
-        method: 'POST',
-        url: '/generateRecommendations',
-        data: data
-      })
-    };
-
     return {
       generate: generate
     }
