@@ -122,7 +122,10 @@ module.exports = function(app) {
       if(err) console.log(err);
 
       var recommendations = utils.makeData(data, 'other');
+<<<<<<< HEAD
 
+=======
+>>>>>>> (feat/search) Add case insensitive search
       var recommendationsJSON = JSON.stringify({recommendations: recommendations});
       
       console.log('other artist recommendations', recommendations);
@@ -141,6 +144,7 @@ module.exports = function(app) {
           // console.log('seen2 ', data);
         });
       }
+<<<<<<< HEAD
 
 
     });
@@ -154,6 +158,21 @@ module.exports = function(app) {
     var params = {username: req.body.username, limit: req.body.limit}; 
     console.log('random recommendations params', params);
 
+=======
+
+
+    });
+  });
+
+  
+  // Fetches random artwork that the user has not seen 
+  app.post('/generateRandomRecommendations', function(req, res) {
+    console.log('POST show random recommendation')
+
+    var params = {username: req.body.username, limit: req.body.limit}; 
+    console.log('random recommendations params', params);
+
+>>>>>>> (feat/search) Add case insensitive search
     db.query('MATCH (w:Work), (u:User {username: ({username})}) '+
       ' WHERE NOT (u) -[:SEEN ]->(w) '+
       'RETURN w   LIMIT ' + params.limit, params, function(err, data) {
@@ -215,10 +234,10 @@ module.exports = function(app) {
 
       searchterms = searchterms.substring(1, searchterms.length-1)
          
-         query.push("(n.title =~ '(?i).*\\\\b" + searchterms + "\\\\b.*'" + 
-          ' OR n.artist =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' + 
-           ' OR n.medium =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' +')' )
-    
+      query.push("(n.title =~ '(?i).*\\\\b" + searchterms + "\\\\b.*'" + 
+        ' OR n.artist =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' + 
+        ' OR n.medium =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' +')' )
+
     } else {
       searchterms = searchterms.split(' ');
 
@@ -226,15 +245,15 @@ module.exports = function(app) {
         console.log('single searchterm', searchterms[i])
 
         searchterm = searchterms[i];
-    params = {searchterm: searchterm};
+        params = {searchterm: searchterm};
 
         // for (var k = 0; k < propertyKeys.length; k++)
         // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
 
-
          query.push("(n.title =~ '(?i).*\\\\b" + searchterms[i] + "\\\\b.*'" +
           ' OR n.artist =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +  
           ' OR n.medium =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +')' )
+
 
         if (i < searchterms.length - 1) {
           query.push(' AND ');
