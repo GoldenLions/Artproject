@@ -122,6 +122,7 @@ module.exports = function(app) {
       if(err) console.log(err);
 
       var recommendations = utils.makeData(data, 'other');
+
       var recommendationsJSON = JSON.stringify({recommendations: recommendations});
       
       console.log('other artist recommendations', recommendations);
