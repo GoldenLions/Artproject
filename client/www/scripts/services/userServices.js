@@ -10,6 +10,7 @@ angular.module('dangerousWrenchApp')
         version    : 'v2.1' // use version 2.1
       });
     }
+    
     console.log('userServices')
 
     var userServices = {
@@ -35,6 +36,7 @@ angular.module('dangerousWrenchApp')
           }
         })
       },
+
       goToRec: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -50,7 +52,7 @@ angular.module('dangerousWrenchApp')
       },
       //Leftover functionality from James' project
       generateUserLikes: function(username) {
-        var username = JSON.stringify({username: 'demo'});
+        var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
           url: '/generateUserLikes',
