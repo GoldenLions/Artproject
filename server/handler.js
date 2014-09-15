@@ -122,10 +122,7 @@ module.exports = function(app) {
       if(err) console.log(err);
 
       var recommendations = utils.makeData(data, 'other');
-<<<<<<< HEAD
 
-=======
->>>>>>> (feat/search) Add case insensitive search
       var recommendationsJSON = JSON.stringify({recommendations: recommendations});
       
       console.log('other artist recommendations', recommendations);
@@ -144,21 +141,7 @@ module.exports = function(app) {
           // console.log('seen2 ', data);
         });
       }
-<<<<<<< HEAD
 
-
-    });
-  });
-
-  
-  // Fetches random artwork that the user has not seen 
-  app.post('/generateRandomRecommendations', function(req, res) {
-    console.log('POST show random recommendation')
-
-    var params = {username: req.body.username, limit: req.body.limit}; 
-    console.log('random recommendations params', params);
-
-=======
 
 
     });
@@ -172,7 +155,6 @@ module.exports = function(app) {
     var params = {username: req.body.username, limit: req.body.limit}; 
     console.log('random recommendations params', params);
 
->>>>>>> (feat/search) Add case insensitive search
     db.query('MATCH (w:Work), (u:User {username: ({username})}) '+
       ' WHERE NOT (u) -[:SEEN ]->(w) '+
       'RETURN w   LIMIT ' + params.limit, params, function(err, data) {
