@@ -6,6 +6,8 @@ var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
 
 var utils = require('./utils.js');
 
+
+
 module.exports = function(app) {
 
   app.use(passport.initialize());
@@ -106,40 +108,77 @@ module.exports = function(app) {
     var results = [];
 
     // get the top artist that the user likes 
-    var params = {username: req.body.username};
-    console.log(params)
+    var params = {username: req.body.username, limit: req.body.limit};
+    console.log('artist params', params);
 
     // select all artworks by artists user likes that user has not seen
     var cypher ='Match (me:User {username: ({username}) })-[:LIKES]->(n:Work)<-[:CREATED_WORK]-(a:Artist)-[c:CREATED_WORK]->(other:Work)' +
                 'WHERE NOT  me -[:SEEN]-> other ' +
                 'RETURN other  ' +
                 'ORDER BY other.name  ' +
-                'LIMIT 20';
+                'LIMIT  ' + params.limit;
    
     db.query(cypher, params, function(err, data){
       if(err) console.log(err);
-      console.log('other', data);
 
       var recommendations = utils.makeData(data, 'other');
-      var recommendationsJSON = JSON.stringify(recommendations);
+      var recommendationsJSON = JSON.stringify({recommendations: recommendations});
+      
+      console.log('other artist recommendations', recommendations);
+
+      res.end(recommendationsJSON);
 
       // mark each recommendation as seen.
       for (var i = 0; i < recommendations.length; i++) {
 
         params = {username: req.body.username, url: recommendations[i].url};
-        console.log('seen', params)
+        // console.log('seen', params);
+
+        cypher = "MATCH (w:Work {url: ({url}) }), (u:User {username: ({username}) }) MERGE u -[:SEEN {timestamp: timestamp()} ] ->  w return w.url limit 1";
+        db.query(cypher, params, function(err, data){
+          if(err) console.log(err);
+          // console.log('seen2 ', data);
+        });
+      }
+
+
+    });
+  });
+
+  
+  // Fetches random artwork that the user has not seen 
+  app.post('/generateRandomRecommendations', function(req, res) {
+    console.log('POST show random recommendation')
+
+    var params = {username: req.body.username, limit: req.body.limit}; 
+    console.log('random recommendations params', params);
+
+    db.query('MATCH (w:Work), (u:User {username: ({username})}) '+
+      ' WHERE NOT (u) -[:SEEN ]->(w) '+
+      'RETURN w   LIMIT ' + params.limit, params, function(err, data) {
+      if (err) console.log(err);
+      var recommendations = utils.makeData(data, 'w');
+      // console.log(recommendations)
+
+      var recommendationsJSON = JSON.stringify({recommendations: recommendations});
+      res.end(recommendationsJSON);
+
+      // mark each recommendation as seen.
+      for (var i = 0; i < recommendations.length; i++) {
+
+        params = {username: req.body.username, url: recommendations[i].url};
+        console.log('seen', params);
 
         cypher = "MATCH (w:Work {url: ({url}) }), (u:User {username: ({username}) }) MERGE u -[:SEEN {timestamp: timestamp()} ] ->  w return w.url limit 1";
         db.query(cypher, params, function(err, data){
           if(err) console.log(err);
           console.log('seen2 ', data);
         });
-      };
-
-      res.end(recommendationsJSON);
+      }
 
     })
-  })
+  });
+
 
   // Fetches all items that the user likes
   app.post('/generateUserLikes', function(req, res) {
@@ -200,7 +239,7 @@ module.exports = function(app) {
 
       if (err) console.log(err);
       var searchResult = utils.makeData(data, 'n');
-      searchResult = JSON.stringify(searchResult);
+      searchResult = JSON.stringify({search: searchResult});
 
       res.end(searchResult);
     } )
