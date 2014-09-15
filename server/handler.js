@@ -212,12 +212,12 @@ module.exports = function(app) {
     if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
 
       // remove first and last quotes
-      searchterm = searchterms.substring(1, searchterms.length-1);
-           params = {searchterm: searchterm};
-  
-      query.push("(n.title =~ '(?i).*\\\\b({searchterm})\\\\b.*'" +
-        ' OR n.artist =~ "(?i).*\\\\b({searchterm})\\\\b.*"' + 
-        ' OR n.medium =~ "(?i).*\\\\b({searchterm})\\\\b.*"' +')' )
+
+      searchterms = searchterms.substring(1, searchterms.length-1)
+         
+         query.push("(n.title =~ '(?i).*\\\\b" + searchterms + "\\\\b.*'" + 
+          ' OR n.artist =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' + 
+           ' OR n.medium =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' +')' )
     
     } else {
       searchterms = searchterms.split(' ');
@@ -231,9 +231,10 @@ module.exports = function(app) {
         // for (var k = 0; k < propertyKeys.length; k++)
         // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
 
-        query.push("(n.title =~ '(?i).*\\\\b({searchterm})\\\\b.*'" +
-          ' OR n.artist =~ "(?i).*\\\\b({searchterm})\\\\b.*"' + 
-          ' OR n.medium =~ "(?i).*\\\\b({searchterm})\\\\b.*"' +')' )
+
+         query.push("(n.title =~ '(?i).*\\\\b" + searchterms[i] + "\\\\b.*'" +
+          ' OR n.artist =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +  
+          ' OR n.medium =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +')' )
 
         if (i < searchterms.length - 1) {
           query.push(' AND ');
