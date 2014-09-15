@@ -25,11 +25,9 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
     randomRecommendations.then(function(randomRecs){
     all = all.concat(randomRecs.data.recommendations);
       $scope.items =  all;
-      console.log('llll', $scope.items)
     });
 
   });
-
 
   $scope.selectedIndex = [];
   
