@@ -6,6 +6,8 @@ var db = new neo4j.GraphDatabase('http://goldenlions.cloudapp.net:7474');
 
 var utils = require('./utils.js');
 
+
+
 module.exports = function(app) {
 
   app.use(passport.initialize());
@@ -58,8 +60,6 @@ module.exports = function(app) {
 
 
 
-
-  //needs s3
   app.post('/generateArtInfo', function(req, res) { 
     // may have to change variable names and refactor based on database formatting
     var pid = parseInt(req.body.painting);
@@ -99,61 +99,96 @@ module.exports = function(app) {
     })
   });
 
+
   // Generate reccomendations based on other works that artist created.
+  // Mark all the reccomendations as seen.
   app.post('/generateArtistRecommendations', function(req, res) {
     console.log('generateArtistRecommendations');
     var recommendations = [];
     var results = [];
 
     // get the top artist that the user likes 
-    var params = {username: req.body.username};
-    // console.log(params)
-    var cypher ="MATCH (user:User)-[:`LIKES`]->(work:Work)<-[:CREATED_WORK] - (artist:Artist) RETURN user,work.artist as artist, count(artist) as count ORDER BY count DESC LIMIT 1";
+    var params = {username: req.body.username, limit: req.body.limit};
+    console.log('artist params', params);
+
+    // select all artworks by artists user likes that user has not seen
+    var cypher ='Match (me:User {username: ({username}) })-[:LIKES]->(n:Work)<-[:CREATED_WORK]-(a:Artist)-[c:CREATED_WORK]->(other:Work)' +
+                'WHERE NOT  me -[:SEEN]-> other ' +
+                'RETURN other  ' +
+                'ORDER BY other.name  ' +
+                'LIMIT  ' + params.limit;
    
-    db.query(cypher, params, function(err, artists){
+    db.query(cypher, params, function(err, data){
       if(err) console.log(err);
-      // console.log(artists);
 
-      // for each artist, get 5 paintings for that artist
-      for(var i = 0; i < artists.length; i++) {
-        var targetArtist = artists[i].artist;
-        // console.log(targetArtist);
+      var recommendations = utils.makeData(data, 'other');
 
-        var params2 = {targetArtist: targetArtist};
-        var cypher2 ="MATCH (artist:Artist {name: ({targetArtist})} )-[:`CREATED_WORK`]->(work:Work) RETURN work  LIMIT 20";
+      var recommendationsJSON = JSON.stringify({recommendations: recommendations});
+      
+      console.log('other artist recommendations', recommendations);
 
-        db.query(cypher2, params2, function(err, works){
+      res.end(recommendationsJSON);
+
+      // mark each recommendation as seen.
+      for (var i = 0; i < recommendations.length; i++) {
+
+        params = {username: req.body.username, url: recommendations[i].url};
+        // console.log('seen', params);
+
+        cypher = "MATCH (w:Work {url: ({url}) }), (u:User {username: ({username}) }) MERGE u -[:SEEN {timestamp: timestamp()} ] ->  w return w.url limit 1";
+        db.query(cypher, params, function(err, data){
           if(err) console.log(err);
-
-          var temp = utils.makeData(works, 'work') ;
-
-          for(var j = 0; j < temp.length; j++) {
-            results.push(temp[j])
-          }
-
-          results = JSON.stringify(results);
-
-          // console.log(i, artists.length)
-          // console.log('results1' ,results)
-
-          res.end(results)
-
-        })
+          // console.log('seen2 ', data);
+        });
       }
+
+
+
+    });
+  });
+
+  
+  // Fetches random artwork that the user has not seen 
+  app.post('/generateRandomRecommendations', function(req, res) {
+    console.log('POST show random recommendation')
+
+    var params = {username: req.body.username, limit: req.body.limit}; 
+    console.log('random recommendations params', params);
+
+    db.query('MATCH (w:Work), (u:User {username: ({username})}) '+
+      ' WHERE NOT (u) -[:SEEN ]->(w) '+
+      'RETURN w   LIMIT ' + params.limit, params, function(err, data) {
+      if (err) console.log(err);
+      var recommendations = utils.makeData(data, 'w');
+      // console.log(recommendations)
+
+      var recommendationsJSON = JSON.stringify({recommendations: recommendations});
+      res.end(recommendationsJSON);
+
+      // mark each recommendation as seen.
+      for (var i = 0; i < recommendations.length; i++) {
+
+        params = {username: req.body.username, url: recommendations[i].url};
+        console.log('seen', params);
+
+        cypher = "MATCH (w:Work {url: ({url}) }), (u:User {username: ({username}) }) MERGE u -[:SEEN {timestamp: timestamp()} ] ->  w return w.url limit 1";
+        db.query(cypher, params, function(err, data){
+          if(err) console.log(err);
+          console.log('seen2 ', data);
+        });
+      }
+
     })
-  })
+  });
 
 
   // Fetches all items that the user likes
   app.post('/generateUserLikes', function(req, res) {
     console.log('POST show user likes')
 
-    //may have to change names, etc., based on db format
-    //'like' here = edge between usernode and artwork node
-
     var params = {username: req.body.username}; 
-    console.log(params)
-    db.query('MATCH (n:User {username: ({username}) })-[:LIKES]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
+    console.log('user likes params', params)
+    db.query('MATCH (n:User {username: ({username}) })-[:LIKES {rating: 1}]->(m:Work)\nRETURN m limit 1000', params, function(err, data) {
       if (err) console.log(err);
       var likesObj = utils.makeData(data, 'm');
       // console.log(likesObj)
@@ -162,62 +197,58 @@ module.exports = function(app) {
     })
   });
 
-  // Searched  painting's title, artist, and medium for a keyword
- // Searched  painting's title, artist, and medium for a keyword
+  // Searches  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
-    var searchterms = req.body.searchterms;
-  console.log(searchterms);
+    var searchterms = req.body.searchterms,
+      searchterm='',
+      params={};
   
     // var propertyKeys = [title, dates, image, name, type, artist, value]
     var query = [];
     query.push('MATCH (n:Work) WHERE ');
 
     console.log('SEARCHTERMS=', searchterms);
-    for (var i = 0; i < searchterms.length; i++) {
-
-      // query.push(
-      //   '(n.title =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.medium =~ ".*\\b'+ searchterms[i] + '\\b.*"' +
-      //   ' OR n.artist =~ ".*\\b'+ searchterms[i] +'\\b.*" )'
-      // );  
-
-      // if (i < searchterms.length - 1) {
-      //   query.push(' AND ');
-      // }
 
     //if search term has quotes around it, search for the entire phrase
     if(searchterms[0] ==='"' && searchterms[searchterms.length-1] === '"'){
 
       // remove first and last quotes
-      searchterms = searchterms.substring(1, searchterms.length-1)
-      console.log('quoted search', searchterms)
 
-         query.push("(n.title =~ '.*\\\\b" + searchterms + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms + '\\\\b.*"' +')' )
-    
+      searchterms = searchterms.substring(1, searchterms.length-1)
+         
+      query.push("(n.title =~ '(?i).*\\\\b" + searchterms + "\\\\b.*'" + 
+        ' OR n.artist =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' + 
+        ' OR n.medium =~ "(?i).*\\\\b'+ searchterms + '\\\\b.*"' +')' )
 
     } else {
       searchterms = searchterms.split(' ');
 
       for (var i = 0; i < searchterms.length; i++) {
         console.log('single searchterm', searchterms[i])
+
+        searchterm = searchterms[i];
+        params = {searchterm: searchterm};
+
         // for (var k = 0; k < propertyKeys.length; k++)
         // query.push('(n.title =~ "(?i).*'+ searchterms[i] +'.*" OR n.image =~ ".*'+ searchterms[i] +'.*" OR n.artist =~ ".*'+ searchterms[i] +'.*" OR (a.type = "TIMELINE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TYPE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "FORM" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "SCHOOL" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "TECHNIQUE" AND a.value =~ ".*'+ searchterms[i] +'.*") OR (a.type = "DATE" AND a.value =~ ".*'+ searchterms[i] +'.*"))');  
 
-         query.push("(n.title =~ '.*\\\\b" + searchterms[i] + "\\\\b.*'" + ' OR n.artist =~ ".*\\\\b'+ searchterms[i] + '\\\\b.*"' +  ' OR n.medium =~ ".*\\\\b'+ searchterms[i] + '\\\\b.*"' +')' )
+         query.push("(n.title =~ '(?i).*\\\\b" + searchterms[i] + "\\\\b.*'" +
+          ' OR n.artist =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +  
+          ' OR n.medium =~ "(?i).*\\\\b'+ searchterms[i] + '\\\\b.*"' +')' )
+
 
         if (i < searchterms.length - 1) {
           query.push(' AND ');
         }
       }
-      
     }
 
-
+    params = {searchterm: searchterm};
 
     query.push(' return distinct n limit 1000');
     query = query.join('');
     console.log(query)
-    db.query(query, function(err, data) {
+    db.query(query, params, function(err, data) {
 
       if (err) console.log(err);
       var searchResult = utils.makeData(data, 'n');
@@ -225,26 +256,45 @@ module.exports = function(app) {
 
       res.end(searchResult);
     } )
-
-  }
   })
 
 
-  // when user clicks like, add like relationship between user and painting
+
+  // creates/update like relationship between user and work of art
   app.post('/like', function(req, res){
-    console.log('POST create likes')
+    console.log('POST create likes');
+    var params = { url: req.body.url, username: req.body.username, rating: req.body.rating };
+    console.log('like params', params);
 
-    var params = { url: req.body.url, username: req.body.username };
-
-    db.query('MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nCREATE (n)-[:LIKES {rating:1}]->(b)', params, function(err){
-
+    // check if there is an existing like relationship between user and artwork
+    var cypher = 'MATCH (n:User {username: ({username}) })-[r:LIKES] -> (b:Work {url: ({url}) })\nreturn r';
+    db.query(cypher, params, function(err, data){
       if (err) console.log(err);
-      console.log('like created!');
-      // console.log(params);
+
+      // if like relationship exists, set new ratings for like
+      if(data.length > 0) {
+        console.log('like exists');
+        cypher = 'MATCH (n:User {username: ({username}) })-[r:LIKES] -> (b:Work {url: ({url}) })\nSET r.rating = ({rating})';
+        db.query( cypher, params, function(err){
+          if (err) console.log(err);
+          console.log('like rating update!');
+        });
+
+      // else if like doesn't exist, create like relationship
+      } else {
+        console.log('like does not exists');
+
+        cypher = 'MATCH (n:User {username: ({username}) }),(b:Work {url: ({url}) })\nMERGE (n)-[:LIKES {rating: ({rating}) }]->(b)';
+        db.query(cypher, params, function(err){
+          if (err) console.log(err);
+          console.log('like created!');
+        });
+      }
+
       res.end();
-      console.log(res.end())
-    })
+    });
   });
+
 
 
 };

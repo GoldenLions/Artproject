@@ -50,8 +50,9 @@ angular.module('dangerousWrenchApp')
           }
         });
       },
-      //Leftover functionality from James' project
-      generateUserLikes: function(username) {
+
+
+      generateUserLikes: function(username, limit) {
         var username = JSON.stringify({username: username});
         return $http({
           method: 'POST',
@@ -59,16 +60,29 @@ angular.module('dangerousWrenchApp')
           data: username
         })
       },
-      //Leftover functionality from James' project
 
-      generateArtistRecommendations: function(username) { 
-        var username = JSON.stringify({username: username});
+      generateArtistRecommendations: function(username, limit) { 
+        var data = JSON.stringify({username: username, limit: limit});
+        console.log('dddd', data)
         return $http({
           method: 'POST',
           url: '/generateArtistRecommendations', 
-          data: username 
+          data: data 
         }) 
       },
+
+      generateRandomRecommendations: function(username, limit) { 
+
+        var data = JSON.stringify({username: username, limit: limit});
+                console.log('eee', data)
+
+        return $http({
+          method: 'POST',
+          url: '/generateRandomRecommendations',
+          data: data
+        }) 
+      },
+
       grabUserID: function(){
         alert(!!userServices.userName)
         return userServices.userName;

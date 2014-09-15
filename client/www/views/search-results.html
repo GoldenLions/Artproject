@@ -1,9 +1,5 @@
 <div class='container'>
   <div class='SearchResultsHeader'>
-    <form class="SearchResultsForm">
-      <input type="text" class="typeahead searchBar searchBarInput" ng-model="searchterms" placeholder="Enter search terms...">
-      <button class="searchBar searchBarButton" ng-click="search(searchterms)" >Search!</button>
-    </form>
   </div>
   <div class="clearfix"></div>
   <div class="allSearchResults">
@@ -16,6 +12,8 @@
           <h4>Artist: {{art.artist}}</h4>
           <h4>Year: {{ art.year }}</h4>
           <button class="likeButtonClass" ng-click="likeButton.like({{art.id}})">Like</a>
+          <button class="likeButtonClass" ng-click="likeButton.unlike({{art.id}})">Unlike</a>
+
       </div>
       <div class="clearfix"></div>
     </div>
