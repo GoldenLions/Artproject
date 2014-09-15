@@ -58,8 +58,6 @@ module.exports = function(app) {
 
 
 
-
-  //needs s3
   app.post('/generateArtInfo', function(req, res) { 
     // may have to change variable names and refactor based on database formatting
     var pid = parseInt(req.body.painting);
@@ -99,7 +97,9 @@ module.exports = function(app) {
     })
   });
 
+
   // Generate reccomendations based on other works that artist created.
+  // Mark all the reccomendations as seen.
   app.post('/generateArtistRecommendations', function(req, res) {
     console.log('generateArtistRecommendations');
     var recommendations = [];
@@ -107,49 +107,43 @@ module.exports = function(app) {
 
     // get the top artist that the user likes 
     var params = {username: req.body.username};
-    // console.log(params)
-    var cypher ="MATCH (user:User)-[:`LIKES`]->(work:Work)<-[:CREATED_WORK] - (artist:Artist) RETURN user,work.artist as artist, count(artist) as count ORDER BY count DESC LIMIT 1";
+    console.log(params)
+
+    // select all artworks by artists user likes that user has not seen
+    var cypher ='Match (me:User {username: ({username}) })-[:LIKES]->(n:Work)<-[:CREATED_WORK]-(a:Artist)-[c:CREATED_WORK]->(other:Work)' +
+                'WHERE NOT  me -[:SEEN]-> other ' +
+                'RETURN other  ' +
+                'ORDER BY other.name  ' +
+                'LIMIT 20';
    
-    db.query(cypher, params, function(err, artists){
+    db.query(cypher, params, function(err, data){
       if(err) console.log(err);
-      // console.log(artists);
+      console.log('other', data);
 
-      // for each artist, get 5 paintings for that artist
-      for(var i = 0; i < artists.length; i++) {
-        var targetArtist = artists[i].artist;
-        // console.log(targetArtist);
+      var recommendations = utils.makeData(data, 'other');
+      var recommendationsJSON = JSON.stringify(recommendations);
 
-        var params2 = {targetArtist: targetArtist};
-        var cypher2 ="MATCH (artist:Artist {name: ({targetArtist})} )-[:`CREATED_WORK`]->(work:Work) RETURN work  LIMIT 20";
+      // mark each recommendation as seen.
+      for (var i = 0; i < recommendations.length; i++) {
 
-        db.query(cypher2, params2, function(err, works){
+        params = {username: req.body.username, url: recommendations[i].url};
+        console.log('seen', params)
+
+        cypher = "MATCH (w:Work {url: ({url}) }), (u:User {username: ({username}) }) MERGE u -[:SEEN {timestamp: timestamp()} ] ->  w return w.url limit 1";
+        db.query(cypher, params, function(err, data){
           if(err) console.log(err);
+          console.log('seen2 ', data);
+        });
+      };
 
-          var temp = utils.makeData(works, 'work') ;
+      res.end(recommendationsJSON);
 
-          for(var j = 0; j < temp.length; j++) {
-            results.push(temp[j])
-          }
-
-          results = JSON.stringify(results);
-
-          // console.log(i, artists.length)
-          // console.log('results1' ,results)
-
-          res.end(results)
-
-        })
-      }
     })
   })
-
 
   // Fetches all items that the user likes
   app.post('/generateUserLikes', function(req, res) {
     console.log('POST show user likes')
-
-    //may have to change names, etc., based on db format
-    //'like' here = edge between usernode and artwork node
 
     var params = {username: req.body.username}; 
     console.log('user likes params', params)
@@ -162,8 +156,7 @@ module.exports = function(app) {
     })
   });
 
-  // Searched  painting's title, artist, and medium for a keyword
- // Searched  painting's title, artist, and medium for a keyword
+  // Searches  painting's title, artist, and medium for a keyword
   app.post('/KeywordSearch', function(req, res) {
     var searchterms = req.body.searchterms;
   
