@@ -114,7 +114,7 @@ module.exports = function(app) {
                 'WHERE NOT  me -[:SEEN]-> other ' +
                 'RETURN other  ' +
                 'ORDER BY other.name  ' +
-                'LIMIT 5';
+                'LIMIT 20';
    
     db.query(cypher, params, function(err, data){
       if(err) console.log(err);
