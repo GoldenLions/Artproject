@@ -143,8 +143,8 @@ angular.module('dangerousWrenchApp')
             console.log(response.status ==='connected')
             if(response.status === 'connected'){
               console.log('take me to rec page')
-              userServices.userName = response.authResponse.userID;
-              console.log('username',userServices.userName)
+              localStorage.setItem("userName", response.authResponse.userID);
+              console.log('username',localStorage.getItem('userName'))
               $rootScope.$apply(function() {
 
                       $location.path("/recommendation");
@@ -168,6 +168,8 @@ angular.module('dangerousWrenchApp')
       logout: function(){
         console.log('loggin out')
         FB.logout();
+        //might not be necessary
+        localStorage.setItem('userName',null)
       },
       //Controller will have to call this to initialize Facebook's Javacsript SDK
       // fbAsyncInit: function(){

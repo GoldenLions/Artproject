@@ -26,6 +26,7 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
      all = all.concat( artistRecs.data.recommendations);
 
     //fetch random recommendations
+    console.log(localStorage.getItem('userName'))
     randomRecommendations = userServices.generateRandomRecommendations(localStorage.getItem('userName'), randomLimit )
 
     randomRecommendations.then(function(randomRecs){
