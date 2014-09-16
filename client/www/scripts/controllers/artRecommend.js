@@ -18,7 +18,7 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
     // })
 
   // fetch recommendations based on artist the user likes
-  artistRecommendations = userServices.generateArtistRecommendations(userServices.userName, artistLimit);
+  artistRecommendations = userServices.generateArtistRecommendations(localStorage.getItem('userName'), artistLimit);
 
   artistRecommendations.then(function(artistRecs) {
     randomLimit =  maxLimit -  artistRecs.data.recommendations.length || 0;
@@ -26,7 +26,7 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
      all = all.concat( artistRecs.data.recommendations);
 
     //fetch random recommendations
-    randomRecommendations = userServices.generateRandomRecommendations(userServices.userName, randomLimit )
+    randomRecommendations = userServices.generateRandomRecommendations(localStorage.getItem('userName'), randomLimit )
 
     randomRecommendations.then(function(randomRecs){
     all = all.concat(randomRecs.data.recommendations);
@@ -41,7 +41,7 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
   $scope.itemClicked = function ($index) {
 
     $scope.selectedIndex.push($index);
-    likeButton.like({username: userServices.userName, url: $scope.items[$index].url });
+    likeButton.like({username: localStorage.getItem('userName'), url: $scope.items[$index].url });
   }
 
   $scope.toggleLeft = function() {

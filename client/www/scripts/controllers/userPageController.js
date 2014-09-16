@@ -13,10 +13,12 @@ angular.module('dangerousWrenchApp')
     };
     $scope.logout = userServices.logout;
  
+    var temp = localStorage.getItem('userName')
 
     //generateUserLikes is the factory function that queries
     //for a specific users 'liked' art
-    userServices.generateUserLikes( userServices.userName)
+    console.log('passing in temp: ',temp)
+    userServices.generateUserLikes(temp)
       .then(function(data) {
         
         $scope.userLikesResults = data.data.results;

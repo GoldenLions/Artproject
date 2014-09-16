@@ -15,7 +15,6 @@ angular.module('dangerousWrenchApp')
 
 
     var userServices = {
-      userName: null,
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -52,13 +51,27 @@ angular.module('dangerousWrenchApp')
         });
       },
 
+      // generateUserLikes: function() {
+      //   console.log('inside generateUserLikes')
+      //   FB.getLoginStatus(function(response){
+      //     var username = JSON.stringify({username: response.authResponse.userID});
+      //       console.log('username is: '+username);
+      //     return $http({
+      //       method: 'POST',
+      //       url: '/generateUserLikes',
+      //       data: username
+      //     })
+      //   })
+      // },
 
       generateUserLikes: function(username, limit) {
-        var username = JSON.stringify({username: username});
+        console.log('username',username,typeof username)
+        var user = JSON.stringify({username: username});
+        console.log('inside generateUserLikes',user)
         return $http({
           method: 'POST',
           url: '/generateUserLikes',
-          data: username
+          data: user
         })
       },
 
@@ -100,7 +113,8 @@ angular.module('dangerousWrenchApp')
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
-          userServices.userName = response.authResponse.userID;
+          localStorage.setItem("userName", response.authResponse.userID);
+          console.log('userName = '+localStorage.getItem('userName'))
           $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
