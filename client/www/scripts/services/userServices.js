@@ -10,10 +10,11 @@ angular.module('dangerousWrenchApp')
         version    : 'v2.1' // use version 2.1
       });
     }
+    
     console.log('userServices')
 
+
     var userServices = {
-      userName: null,
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -35,6 +36,7 @@ angular.module('dangerousWrenchApp')
           }
         })
       },
+
       goToRec: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -49,12 +51,27 @@ angular.module('dangerousWrenchApp')
         });
       },
 
+      // generateUserLikes: function() {
+      //   console.log('inside generateUserLikes')
+      //   FB.getLoginStatus(function(response){
+      //     var username = JSON.stringify({username: response.authResponse.userID});
+      //       console.log('username is: '+username);
+      //     return $http({
+      //       method: 'POST',
+      //       url: '/generateUserLikes',
+      //       data: username
+      //     })
+      //   })
+      // },
+
       generateUserLikes: function(username, limit) {
-        var username = JSON.stringify({username: username});
+        console.log('username',username,typeof username)
+        var user = JSON.stringify({username: username});
+        console.log('inside generateUserLikes',user)
         return $http({
           method: 'POST',
           url: '/generateUserLikes',
-          data: username
+          data: user
         })
       },
 
@@ -69,7 +86,8 @@ angular.module('dangerousWrenchApp')
       },
 
       generateRandomRecommendations: function(username, limit) { 
-
+        //before you grab username, u need to call FB.getLoginStatus(func(resp){}) and
+        //set username to be response.authResponse.userID
         var data = JSON.stringify({username: username, limit: limit});
                 console.log('eee', data)
 
@@ -95,7 +113,8 @@ angular.module('dangerousWrenchApp')
         if (response.status === 'connected'){
           console.log('your userID is: '+response.authResponse.userID);
           userServices.testAPI();
-          userServices.userName = response.authResponse.userID;
+          localStorage.setItem("userName", response.authResponse.userID);
+          console.log('userName = '+localStorage.getItem('userName'))
           $location.path('/recommendation')
           ////////////////////////////////////////////////////////////
           //This is what gets called after the user logs in. This is subject to change.
@@ -124,8 +143,8 @@ angular.module('dangerousWrenchApp')
             console.log(response.status ==='connected')
             if(response.status === 'connected'){
               console.log('take me to rec page')
-              userServices.userName = response.authResponse.userID;
-              console.log('username',userServices.userName)
+              localStorage.setItem("userName", response.authResponse.userID);
+              console.log('username',localStorage.getItem('userName'))
               $rootScope.$apply(function() {
 
                       $location.path("/recommendation");
@@ -149,17 +168,19 @@ angular.module('dangerousWrenchApp')
       logout: function(){
         console.log('loggin out')
         FB.logout();
+        //might not be necessary
+        localStorage.setItem('userName',null)
       },
       //Controller will have to call this to initialize Facebook's Javacsript SDK
-      fbAsyncInit: function(){
-        FB.init({
-          appId      : '817757534922398',
-          cookie     : true,  // enable cookies to allow the server to access
-                              // the session
-          xfbml      : true,  // parse social plugins on this page
-          version    : 'v2.1' // use version 2.1
-        });
-      },
+      // fbAsyncInit: function(){
+      //   FB.init({
+      //     appId      : '817757534922398',
+      //     cookie     : true,  // enable cookies to allow the server to access
+      //                         // the session
+      //     xfbml      : true,  // parse social plugins on this page
+      //     version    : 'v2.1' // use version 2.1
+      //   });
+      // },
 
       //very simple test of the Graph API after login is successful. See the statusChangeCallback()
       //for when this call is made.
