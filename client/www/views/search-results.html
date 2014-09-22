@@ -5,19 +5,20 @@
   <div class="allSearchResults">
     <div class='search-result' ng-repeat='art in currentPageArtData'>
       <a href = "/#/art/{{art.id}}">
-      <img class='resultImage half pull-left' src='{{art.url}}' max-width="20%" max-height="200">
+      <img class='resultImage one-whole' src='{{art.url}}' max-width="20%" max-height="200">
       </a>
-      <div class="art-info half pull-left">
+      <div class="art-info">
           <h3>{{art.title}}</h3>
           <h4>Artist: {{art.artist}}</h4>
           <h4>Year: {{ art.year }}</h4>
           <button class="likeButtonClass" ng-click="likeButton.like({{art.id}})">Like</a>
           <button class="likeButtonClass" ng-click="likeButton.unlike({{art.id}})">Unlike</a>
-
       </div>
       <div class="clearfix"></div>
     </div>
 
+  </div>
+  <div  class="pagination-wrapper">
     <pagination total-items="totalItems" ng-model="currentPage" max-size='10' ng-change="pageChanged()" ng-show="totalItems"></pagination>
   </div>
 </div>

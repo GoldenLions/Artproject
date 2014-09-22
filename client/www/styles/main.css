@@ -17,7 +17,7 @@ a {
 }
 
 a:hover {
-  color: #FD252A;
+  color: #00CAFF;
 }
 
 button {
@@ -27,9 +27,16 @@ button {
   text-transform: uppercase;
   padding: 10px 30px;
   -webkit-appearance: none;
+  appearance: none;
   outline: none;
   border: none;
   border-radius: 10px;
+  background-color: #00CAFF;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.5;
 }
 
 button.facebook {
@@ -90,7 +97,7 @@ button.facebook i{
 
 .page-wrap {
   min-height: 100%;
-  margin-bottom: -60px;
+  margin-bottom: -100px;
 }
 
 .page-wrap:after {
@@ -100,7 +107,7 @@ button.facebook i{
 
 .navbar {
   font-weight: 600;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.6);
   text-transform: uppercase;
   letter-spacing: 1px;
   -webkit-border-radius: 0;
@@ -140,10 +147,11 @@ button.facebook i{
   background-color: #000;
 }
 
+
 .navbar-form {
   margin-top: 10px;
   font-family: 'Lusitana', serif;
-  width:410px;
+  /*width:410px;*/
 }
 
 .navbar-form .form-group {
@@ -170,10 +178,33 @@ button.facebook i{
   border-color: #00CAFF;
 }
 
+.nav button.facebook {
+  font-size: 15px;
+  padding: 5px 14px;
+  border-radius: 7px;
+}
+
 /*.navbar-form .glyphicon {
   left: 25px;
   top: 2px;
 }*/
+
+.my-tooltip {
+  font-family: 'Arial', sans-serif;
+  text-decoration: none;
+  background: #00CAFF;
+  border-radius: 50%;
+  font-size: 14px;
+  padding: 2px 7px 2px 7px;
+  bottom: 3px;
+  position: relative;
+  color: white;
+}
+
+.my-tooltip:hover {
+  color:#FFF;
+  text-decoration: none;
+}
 
 .sign-in {
   position: absolute;
@@ -182,24 +213,61 @@ button.facebook i{
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: -1;
   background: url('monet.jpg') no-repeat center center;
   background-size: cover;
-  color: #FFF;
-  padding-top: 60px;
 
 }
 
-.sign-in .center-block {
+.main .center-block {
+  padding-top: 60px;
+  color: #FFF;
   margin-bottom: 70px;
 }
 
+.allSearchResults {
+  -webkit-column-count: 3;
+  column-count: 3;
+}
+
 .search-result {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  display: inline-block;
 }
 
 .search-result img{
   margin-right: 2%
+}
+
+.artInfo button{
+  margin-top:20px;
+}
+
+.pagination-wrapper {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom:30px;
+}
+
+.pagination-wrapper ul {
+  margin: 0 auto;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color: #00CAFF;
+border-color: #00CAFF;
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: #00CAFF;
+  padding: 10px 30px;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+  color: #00CAFF;
+  text-decoration: underline;
+  background-color: #fff;
 }
 
 footer {
@@ -253,7 +321,7 @@ footer a:hover {
 }
 
 footer, .page-wrap:after {
-  height: 60px;
+  height: 100px;
 }
 
 /**/
@@ -267,7 +335,7 @@ footer, .page-wrap:after {
     font-size: 24px;
     line-height: 30px;
     border: 2px solid #ccc;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     outline: none;
 }
 .tt-query {
@@ -298,5 +366,62 @@ footer, .page-wrap:after {
 }
 .tt-suggestion p {
     margin: 0;
+}
+
+.ion-div img{
+  width: 48%;
+
+}
+
+@media only screen
+and (min-width: 992px) {
+  .navbar-collapse {
+    width: 83.333333%;
+  }
+}
+
+@media only screen
+and (max-width: 768px) {
+  .nav,
+  .nav button.facebook {
+    padding-left: 15px;
+  }
+
+  .nav > li {
+    border-top: 1px solid #e7e7e7;
+  }
+
+  .navbar-default .navbar-collapse,
+  .navbar-default .navbar-form {
+    border-color: transparent;
+  }
+
+
+}
+
+// Overrides ionic layout for desktop
+@media only screen
+and (min-width : 321px) {
+
+}
+
+@media only screen
+and (max-width: 320px) {
+  .container {
+    padding: 0;
+  }
+  .ion-div {
+    width: 350px;
+    height: 390px;
+    display: inline-block;
+  }
+  .ion-div img{
+    width: 100%;
+
+  }
+  .rec-image {
+    width: 350px;
+    height:390px
+  }
 }
 
