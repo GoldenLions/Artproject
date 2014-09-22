@@ -141,10 +141,11 @@ button.facebook i{
   background-color: #000;
 }
 
+
 .navbar-form {
   margin-top: 10px;
   font-family: 'Lusitana', serif;
-  width:410px;
+  /*width:410px;*/
 }
 
 .navbar-form .form-group {
@@ -169,6 +170,12 @@ button.facebook i{
 
 .navbar-form input:focus {
   border-color: #00CAFF;
+}
+
+.nav button.facebook {
+  font-size: 15px;
+  padding: 5px 14px;
+  border-radius: 7px;
 }
 
 /*.navbar-form .glyphicon {
@@ -320,6 +327,25 @@ footer, .page-wrap:after {
 
 .ion-div img{
   width: 48%;
+
+}
+
+@media only screen
+and (max-width: 768px) {
+  .nav,
+  .nav button.facebook {
+    padding-left: 15px;
+  }
+
+  .nav > li {
+    border-top: 1px solid #e7e7e7;
+  }
+
+  .navbar-default .navbar-collapse,
+  .navbar-default .navbar-form {
+    border-color: transparent;
+  }
+
 
 }
 
