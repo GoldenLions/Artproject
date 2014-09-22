@@ -19,4 +19,15 @@ angular.module('dangerousWrenchApp')
       console.log(item);
       likeButton.like(item);
     }
+
+    $scope.unlike = function(){
+      var item = {
+        username: userServices.userName,
+        url: $scope.work.url
+      }
+      console.log(item);
+      likeButton.unlike(item);
+    }
+
+
   });

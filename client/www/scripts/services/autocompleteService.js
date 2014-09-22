@@ -34,7 +34,7 @@ angular.module('dangerousWrenchApp')
         return q.replace(/[,.\!\?;:\[\]\{\}\(\)'"_�]/g,'').split(' ');
       }
     });
-    mediums = new Bloodhound({
+    media = new Bloodhound({
       remote: {
         url: '/api/autocomplete?type=medium&q=%QUERY'
       },
@@ -61,14 +61,14 @@ angular.module('dangerousWrenchApp')
  
     terms.initialize();
     artists.initialize();
-    mediums.initialize();
+    media.initialize();
     titles.initialize();
 
     return {
       terms: terms,
       titles: titles,
       artists: artists,
-      mediums: mediums
+      media: media
      }   
   }])
   .directive('typeahead', ['Autocomplete',function(Autocomplete) {
@@ -97,7 +97,7 @@ angular.module('dangerousWrenchApp')
         },
         {
           name: 'media',
-          source: Autocomplete.mediums.ttAdapter(),
+          source: Autocomplete.media.ttAdapter(),
           displayKey: function(s) {return '"'+s+'"';},
           templates : {
             header: '<h4>Media</h4>'

@@ -2,9 +2,9 @@ var fs = require('fs');
 var engine = require('./engine.js');
 var Engine = engine.Engine;
 
-var artistEngine = new Engine( JSON.parse(fs.readFileSync('./server/lists/unique-artist.json')) );
-var mediumEngine = new Engine( JSON.parse(fs.readFileSync('./server/lists/unique-medium.json')) );
-var titleEngine = new Engine( JSON.parse(fs.readFileSync('./server/lists/unique-title.json')) );
+var artistEngine = new Engine( JSON.parse( fs.readFileSync('./server/lists/unique-artist.json')) );
+var mediumEngine = new Engine( JSON.parse( fs.readFileSync('./server/lists/unique-medium.json')) );
+var titleEngine = new Engine( JSON.parse( fs.readFileSync('./server/lists/unique-title.json')) );
 
 var engineMap = {
   artist: artistEngine,

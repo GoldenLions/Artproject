@@ -4,7 +4,6 @@
 // --------------------------------------------------------------------------------------
 var Trie = function() {
   this.children = {};
-  this.isWordEnd = false;
 };
 Trie.prototype.add = function(words) {
   words = words instanceof Array ? words : [words];

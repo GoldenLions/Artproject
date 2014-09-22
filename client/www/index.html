@@ -59,14 +59,34 @@
 
 
     <!--Facebook SDK-->
+    <div id="fb-root"></div>
     <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+      // window.fbAsyncInit = function() {
+      //   console.log('inside asyncINIT')
+      //   // init the FB JS SDK
+      //   FB.init({
+      //     appId      : '817757534922398',                        // App ID from the app dashboard
+      //     channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+      //     status     : false,                                 // Check Facebook Login status
+      //     xfbml      : true                                  // Look for social plugins on the page
+      //   });
+
+      //   // Additional initialization code such as adding Event Listeners goes here
+      // };
+
+      // Load the SDK asynchronously
+      (function(d, s, id){
+        console.log('hiiii')
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+
+      window.userName;
+
+      
     </script>
 
     <footer>

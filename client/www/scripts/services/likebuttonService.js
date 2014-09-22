@@ -2,11 +2,22 @@ angular.module('dangerousWrenchApp')
 .factory('likeButton', function($http, $q){
 
   var like = function(likeObject){
-   console.log('likeObject', likeObject)
+    likeObject.rating = 1;
+    console.log('likeObject', likeObject)
     var data = JSON.stringify(likeObject);
+    return $http({
+      method: 'POST',
+      url: '/like',
+      dataType: 'json',
+      data: data
+    });
+    
+  };
 
-    console.log('data',data);
-
+  var unlike = function(unlikeObject){
+    unlikeObject.rating = -1;
+    console.log('unlikeObject', unlikeObject)
+    var data = JSON.stringify(unlikeObject);
     return $http({
       method: 'POST',
       url: '/like',
@@ -17,7 +28,8 @@ angular.module('dangerousWrenchApp')
   };
 
   return {
-    like: like
+    like: like,
+    unlike: unlike
   };
 });
 

@@ -1,4 +1,7 @@
 <div class='container'>
+  <div class='SearchResultsHeader'>
+  </div>
+  <div class="clearfix"></div>
   <div class="allSearchResults">
     <div class='search-result' ng-repeat='art in currentPageArtData'>
       <a href = "/#/art/{{art.id}}">
@@ -8,7 +11,8 @@
           <h3>{{art.title}}</h3>
           <h4>Artist: {{art.artist}}</h4>
           <h4>Year: {{ art.year }}</h4>
-          <button class="likeButtonClass" ng-click="likeButton.like({{art.id}})" ng-show="loggedIn">Like</a>
+          <button class="likeButtonClass" ng-click="likeButton.like({{art.id}})">Like</a>
+          <button class="likeButtonClass" ng-click="likeButton.unlike({{art.id}})">Unlike</a>
       </div>
       <div class="clearfix"></div>
     </div>
