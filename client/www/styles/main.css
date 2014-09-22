@@ -31,6 +31,12 @@ button {
   outline: none;
   border: none;
   border-radius: 10px;
+  background-color: #00CAFF;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.5;
 }
 
 button.facebook {
@@ -91,7 +97,7 @@ button.facebook i{
 
 .page-wrap {
   min-height: 100%;
-  margin-bottom: -60px;
+  margin-bottom: -100px;
 }
 
 .page-wrap:after {
@@ -101,7 +107,7 @@ button.facebook i{
 
 .navbar {
   font-weight: 600;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.6);
   text-transform: uppercase;
   letter-spacing: 1px;
   -webkit-border-radius: 0;
@@ -207,20 +213,26 @@ button.facebook i{
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: -1;
   background: url('monet.jpg') no-repeat center center;
   background-size: cover;
-  color: #FFF;
-  padding-top: 60px;
 
 }
 
-.sign-in .center-block {
+.main .center-block {
+  padding-top: 60px;
+  color: #FFF;
   margin-bottom: 70px;
 }
 
+.allSearchResults {
+  -webkit-column-count: 3;
+  column-count: 3;
+}
+
 .search-result {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  display: inline-block;
 }
 
 .search-result img{
@@ -278,7 +290,7 @@ footer a:hover {
 }
 
 footer, .page-wrap:after {
-  height: 60px;
+  height: 100px;
 }
 
 /**/
@@ -292,7 +304,7 @@ footer, .page-wrap:after {
     font-size: 24px;
     line-height: 30px;
     border: 2px solid #ccc;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     outline: none;
 }
 .tt-query {
@@ -328,6 +340,13 @@ footer, .page-wrap:after {
 .ion-div img{
   width: 48%;
 
+}
+
+@media only screen
+and (min-width: 992px) {
+  .navbar-collapse {
+    width: 83.333333%;
+  }
 }
 
 @media only screen

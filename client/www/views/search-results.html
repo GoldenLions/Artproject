@@ -1,17 +1,10 @@
 <div class='container'>
-  <div class='SearchResultsHeader'>
-    <form class="SearchResultsForm">
-      <input type="text" class="typeahead searchBar searchBarInput" ng-model="searchterms" placeholder="Enter search terms...">
-      <button class="searchBar searchBarButton" ng-click="search(searchterms)" >Search!</button>
-    </form>
-  </div>
-  <div class="clearfix"></div>
-  <div class="allSearchResults">
+  <div class="allSearchResults grid">
     <div class='search-result' ng-repeat='art in currentPageArtData'>
       <a href = "/#/art/{{art.id}}">
-      <img class='resultImage half pull-left' src='{{art.url}}' max-width="20%" max-height="200">
+      <img class='resultImage one-whole' src='{{art.url}}' max-width="20%" max-height="200">
       </a>
-      <div class="art-info half pull-left">
+      <div class="art-info">
           <h3>{{art.title}}</h3>
           <h4>Artist: {{art.artist}}</h4>
           <h4>Year: {{ art.year }}</h4>
