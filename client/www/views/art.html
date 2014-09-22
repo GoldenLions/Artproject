@@ -1,12 +1,15 @@
 <div class="container">
-	<div class="fakeImage"><img class="artImage" src="{{work.url}}"></div>
+	<img class="artImage one-whole" src="{{work.url}}">
 
-	<table class="artInfo">
-		<tr ng-repeat="result in results">
-			<td>{{result.type}}</td><td>{{result.value}}</td>
-		</tr>
-	</table>
+	<div class="artInfo">
+			<div class=" pull-left">
+				<h3>{{work.title}}</h3>
+				<h4>Artist: {{work.artist}}</h4>
+				<h4>Year: {{work.year}}</h4>
+			</div>
+			<!-- the action link below will send the ID to the server to create the user-art edge -->
+			<button class="likeButtonClass pull-right" ng-click="likeButton.like({{work.id}})" ng-show="loggedIn">Like</a>
+	</div>
 
-	<!-- the action link below will send the ID to the server to create the user-art edge -->
-	<button class="likeButtonClass" ng-click="like()">Like</a>
+
 </div>

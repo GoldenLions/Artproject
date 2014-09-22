@@ -239,6 +239,10 @@ button.facebook i{
   margin-right: 2%
 }
 
+.artInfo button{
+  margin-top:20px;
+}
+
 .pagination-wrapper {
   width: 100%;
   text-align: center;
