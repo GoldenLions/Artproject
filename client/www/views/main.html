@@ -7,8 +7,8 @@
 
 	    <h3>Discover art based on keywords, image composition, and favorites from users who share your tastes.</h3>
 	    <!-- <button ng-click="logout()">Logout</button> -->
-	  	<button class="facebook" ng-click="checkLoginState()"><i class="fa fa-facebook"></i>Log In via Facebook</button>
-	  	<button class="facebook" ng-click="logout()"><i class="fa fa-facebook"></i>Logout</button>
+	  	<button class="facebook" ng-click="checkLoginState()" ng-hide="userServices.username"><i class="fa fa-facebook"></i>Log In via Facebook</button>
+	  	<button class="facebook" ng-click="logout()" ng-show="userServices.username"><i class="fa fa-facebook"></i>Logout</button>
 
 	  <div id="status"></div>
 	  </div>

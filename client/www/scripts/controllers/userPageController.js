@@ -8,7 +8,6 @@ angular.module('dangerousWrenchApp')
     };
     $scope.username = $routeParams.user
     $scope.getuserId = function(){
-      console.log('hello')
       $scope.userID = userServices.grabUserID()
     };
     $scope.logout = userServices.logout;

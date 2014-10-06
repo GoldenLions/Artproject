@@ -14,8 +14,6 @@ angular.module('dangerousWrenchApp')
         .then(function (response) {
           $scope.allArtData = response.data;
           $scope.totalItems = $scope.allArtData.length;
-          console.log($scope.allArtData);
-          console.log($scope.totalItems);
           $scope.pageChanged()
         }, function (error) {
           console.log(error);
@@ -23,14 +21,16 @@ angular.module('dangerousWrenchApp')
     };
 
     var likeObject = {};
-    likeObject.url = 'http://www.tate.org.uk/art/images/work/T/T12/T12848_10.jpg';
-    likeObject.username = localStorage.getItem('userName');
 
-    $scope.like = function(){
+    $scope.like = function(url){
+      likeObject.url = url;
+      likeObject.username = localStorage.getItem('userName');
       likeButton.like(likeObject);
     };
 
-    $scope.unlike = function(){
+    $scope.unlike = function(url){
+      likeObject.url = url;
+      likeObject.username = localStorage.getItem('userName');
       likeButton.unlike(likeObject);
     };
 

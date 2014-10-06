@@ -5,14 +5,14 @@
 
 	<ion-content overflow-scroll="true" >
 	  <div class="wide-as-needed">
-	  	<div class="ion-div" ion-checkmark ng-repeat="item in items">
+	  	<div class="ion-div" ion-checkmark ng-repeat="item in items track by $index">
 		  	<img ng-class="{ 'selected-class-name':selectedIndex.indexOf($index)!==-1}" ng-click="itemClicked($index)" ng-src="{{item.url}}" class="rec-image pull-left" />
 		  	<div class="art-info half pull-left">
           <h3>{{item.title}}</h3>
           <h4>Artist: {{item.artist}}</h4>
           <h4>Medium: {{ item.medium }}</h4>
           <h4>Year: {{ item.year }}</h4>
-          <button class="likeButtonClass" ng-click="likeButton.like({{item.id}})">Like</a>
+          <button class="likeButtonClass" ng-click="like(item.url)">Like</button>
       	</div>
       	<div class="clearfix"></div>
 	    	<div check-icon="UsercommitData"></div>

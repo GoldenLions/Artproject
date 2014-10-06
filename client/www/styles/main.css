@@ -18,6 +18,7 @@ a {
 
 a:hover {
   color: #00CAFF;
+  cursor: pointer;
 }
 
 button {
@@ -36,7 +37,7 @@ button {
 }
 
 button:hover {
-  opacity: 0.5;
+  cursor: pointer;
 }
 
 button.facebook {
@@ -44,6 +45,10 @@ button.facebook {
   color: #FFF;
   padding: 10px 20px;
   margin-top:10px;
+}
+
+button.facebook:hover {
+  background-color: #253A67;
 }
 
 button.facebook i{
@@ -103,6 +108,26 @@ button.facebook i{
 .page-wrap:after {
   content: "";
   display: block;
+}
+
+.ion-div {
+  margin: 20px 0;
+}
+
+.ion-div img{
+  width: 48%;
+}
+
+.art-info {
+  margin-left: 2%;
+}
+
+.main {
+  background: rgba(255, 255, 255, 0.6);
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 20px;
+  margin-top: 21%;
 }
 
 .navbar {
@@ -214,14 +239,14 @@ button.facebook i{
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: url('monet.jpg') no-repeat center center;
+  background: url('light.jpg') no-repeat center center;
   background-size: cover;
+  opacity: 0.7;
 
 }
 
 .main .center-block {
   padding-top: 60px;
-  color: #FFF;
   margin-bottom: 70px;
 }
 
@@ -256,7 +281,7 @@ button.facebook i{
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   background-color: #00CAFF;
-border-color: #00CAFF;
+  border-color: #00CAFF;
 }
 
 .pagination > li > a, .pagination > li > span {
@@ -273,15 +298,10 @@ border-color: #00CAFF;
 footer {
   font-weight: 600;
   width: 100%;
-  font-family: 'Open Sans Condensed', sans-serif;
+  /*font-family: 'Open Sans Condensed', sans-serif;*/
   padding: 20px 0;
   font-size: 15px;
-  background-color: rgba(255,255,255,0.5);
-  /*background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));*/
   color: #16161E;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-top: 1px solid #e7e7e7;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -292,14 +312,6 @@ footer {
     padding-left: 0;
     padding-right: 0;
   }
-}
-/* This is for scrolling paintings horizontally*/
-
-.wide-as-needed {
-  overflow: auto;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
 }
 
 
@@ -368,10 +380,6 @@ footer, .page-wrap:after {
     margin: 0;
 }
 
-.ion-div img{
-  width: 48%;
-
-}
 
 @media only screen
 and (min-width: 992px) {
@@ -382,6 +390,10 @@ and (min-width: 992px) {
 
 @media only screen
 and (max-width: 768px) {
+  .allSearchResults {
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
   .nav,
   .nav button.facebook {
     padding-left: 15px;
@@ -396,17 +408,31 @@ and (max-width: 768px) {
     border-color: transparent;
   }
 
+  .pagination > li > a, .pagination > li > span {
+    padding: 5px 10px;
+  }
 
-}
-
-// Overrides ionic layout for desktop
-@media only screen
-and (min-width : 321px) {
 
 }
 
 @media only screen
-and (max-width: 320px) {
+and (max-width: 400px) {
+  .main {
+    background: none;
+    width: 100%;
+  }
+
+  .allSearchResults {
+    -webkit-column-count: 1;
+    column-count: 1;
+  }
+  /* This is for scrolling paintings horizontally*/
+  .wide-as-needed {
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
   .container {
     padding: 0;
   }
@@ -422,6 +448,10 @@ and (max-width: 320px) {
   .rec-image {
     width: 350px;
     height:390px
+  }
+  .pagination > li > a, .pagination > li > span {
+    padding: 5px;
+    font-size: 16px;
   }
 }
 
