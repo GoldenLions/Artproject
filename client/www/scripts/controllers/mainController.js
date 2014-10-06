@@ -7,10 +7,12 @@ angular.module('dangerousWrenchApp')
       KeywordSearch.displayResults($scope.searchterms);
     };
 
+    // $scope.loggedIn = userServices.checkLoginState();
     $scope.logout = userServices.logout;
     $scope.goToRecs = userServices.goToRecs;
     $scope.goToLikes = userServices.goToLikes;
     $scope.checkLoginState = function(){
+      userServices.username = true;
       userServices.checkLoginState();
     }
   })

@@ -42,9 +42,9 @@
                 <ul class="nav navbar-nav navbar-right col-md-12">
                   <li art-search class="col-md-8"></li>
                   <ul class="col-md-4 nav navbar-nav navbar-right">
-                    <li ng-show="loggedIn"><a ng-click="goToRecs()">Browse</a></li>
-                    <li ng-show="loggedIn"><a ng-click="goToLikes()">Your Likes</a></li>
-                    <li ng-hide="loggedIn"><button class="facebook" ng-click="checkLoginState()"><i class="fa fa-facebook"></i>Log In via Facebook</button></li>
+                    <li ng-show="userServices.username"><a ng-click="goToRecs()">Browse</a></li>
+                    <li ng-show="userServices.username"><a ng-click="goToLikes()">Your Likes</a></li>
+                    <li ng-hide="userServices.username"><button class="facebook" ng-click="checkLoginState()"><i class="fa fa-facebook"></i>Log In via Facebook</button></li>
                   </ul>
 
                 </ul>

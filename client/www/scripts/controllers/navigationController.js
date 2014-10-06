@@ -6,6 +6,7 @@ angular.module('dangerousWrenchApp')
     // $scope.loggedIn = userServices.grabUserID()
     $scope.$watch(userServices.userName, function(newVal, oldVal, scope) {
     	if(newVal) {
+            console.log('newVal', newVal)
     		scope.loggedIn = newVal
     	}
     })

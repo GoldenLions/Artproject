@@ -4,10 +4,16 @@ myApp.controller('UserRecommend', function ($scope,$ionicSideMenuDelegate, likeB
   $scope.selectedIndex = [];
 
   $scope.itemClicked = function ($index) {
-
     $scope.selectedIndex.push($index);
-    likeButton.like({username: localStorage.getItem('userName'), url: $scope.items[$index].url });
   }
+
+  var likeObject = {};
+
+  $scope.like = function(url){
+    likeObject.url = url;
+    likeObject.username = localStorage.getItem('userName');
+    likeButton.like(likeObject);
+  };
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();

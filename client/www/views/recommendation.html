@@ -12,7 +12,7 @@
           <h4>Artist: {{item.artist}}</h4>
           <h4>Medium: {{ item.medium }}</h4>
           <h4>Year: {{ item.year }}</h4>
-          <button class="likeButtonClass" ng-click="likeButton.like({{item.id}})">Like</a>
+          <button class="likeButtonClass" ng-click="like(item.url)">Like</button>
       	</div>
       	<div class="clearfix"></div>
 	    	<div check-icon="UsercommitData"></div>

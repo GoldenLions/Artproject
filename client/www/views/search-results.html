@@ -8,11 +8,12 @@
       <img class='resultImage one-whole' src='{{art.url}}' max-width="20%" max-height="200">
       </a>
       <div class="art-info">
-          <h3>{{art.title}}</h3>
-          <h4>Artist: {{art.artist}}</h4>
-          <h4>Year: {{ art.year }}</h4>
-          <button class="likeButtonClass" ng-click="like(art.url)">Like</a>
-          <button class="likeButtonClass" ng-click="unlike(art.url)">Unlike</a>
+          <h3>{{item.title}}</h3>
+          <h4>Artist: {{item.artist}}</h4>
+          <h4>Medium: {{ item.medium }}</h4>
+          <h4>Year: {{ item.year }}</h4>
+          <button class="likeButtonClass" ng-click="like(art.url)">Like</button>
+          <button class="likeButtonClass" ng-click="unlike(art.url)">Unlike</button>
       </div>
       <div class="clearfix"></div>
     </div>

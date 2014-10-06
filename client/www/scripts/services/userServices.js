@@ -9,11 +9,9 @@ angular.module('dangerousWrenchApp')
         xfbml      : true,  // parse social plugins on this page
         version    : 'v2.1' // use version 2.1
       });
-    }
-
+    }();
     var userServices = {
-      username: false,
-
+      username: null,
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -143,7 +141,7 @@ angular.module('dangerousWrenchApp')
             if(response.status === 'connected'){
               console.log('take me to rec page')
               localStorage.setItem("userName", response.authResponse.userID);
-              console.log('username',localStorage.getItem('userName'))
+              userServices.username = true
               $rootScope.$apply(function() {
 
                       $location.path("/recommendation");
@@ -154,6 +152,17 @@ angular.module('dangerousWrenchApp')
             }
           });
         }
+      },
+
+      isLoggedIn: function() {
+        FB.getLoginStatus(function(response){
+          console.log('inside FB.getLoginSTatus', response)
+          if (response.status === 'connected') {
+            return true
+          } else {
+            return false;
+          }
+        });
       },
 
       //This function is called when someone finishes with the Login Button.
@@ -187,7 +196,6 @@ angular.module('dangerousWrenchApp')
         console.log('Welcome! Fetching your information...');
         FB.api('/me',function(response){
           console.log('Successful login for: ' + response.name);
-          document.getElementById('status').innerHTML = 'Thanks for logging in, '+response.name + '!';
         });
       }
 

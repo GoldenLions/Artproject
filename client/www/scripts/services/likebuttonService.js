@@ -5,12 +5,14 @@ angular.module('dangerousWrenchApp')
     likeObject.rating = 1;
     var data = JSON.stringify(likeObject);
     console.log('likeObject', data);
-    return $http({
+    $http({
       method: 'POST',
       url: '/like',
       dataType: 'json',
       data: likeObject
     });
+
+    return 1
 
   };
 
@@ -18,12 +20,14 @@ angular.module('dangerousWrenchApp')
     unlikeObject.rating = -1;
     var data = JSON.stringify(unlikeObject);
     console.log('unlikeObject', data);
-    return $http({
+    $http({
       method: 'POST',
       url: '/like',
       dataType: 'json',
       data: data
     });
+
+    return -1
 
   };
 
