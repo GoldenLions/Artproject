@@ -3,6 +3,17 @@
   "version": "1.0.0",
   "description": "myApp: An Ionic project",
   "dependencies": {
+    "bower": "^1.3.3",
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^1.0.1",
+    "gulp-util": "^2.2.14",
+    "jshint-stylish": "^0.2.0",
+    "karma": "^0.12.22",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0",
+    "shelljs": "^0.3.0",
     "aws-sdk": "~2.0.15",
     "body-parser": "~1.6.5",
     "express": "~4.8.5",
@@ -16,17 +27,6 @@
     "neo4j": "~1.1.0"
   },
   "devDependencies": {
-    "bower": "^1.3.3",
-    "grunt": "^0.4.5",
-    "grunt-autoprefixer": "^1.0.1",
-    "gulp-util": "^2.2.14",
-    "jshint-stylish": "^0.2.0",
-    "karma": "^0.12.22",
-    "karma-jasmine": "^0.1.5",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "passport": "~0.2.0",
-    "passport-local": "~1.0.0",
-    "shelljs": "^0.3.0"
   },
   "engines": {
     "node": ">=0.10.0"
