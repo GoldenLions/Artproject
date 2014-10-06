@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch) {
+.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch, likeButton) {
     $scope.searchterms;
     $scope.artData = {};
     $scope.currentPage = 1;
@@ -7,6 +7,14 @@ angular.module('dangerousWrenchApp')
     $scope.totalItems = 0;
     $scope.currentPageArtData = [];
     $scope.allArtData = [];
+
+    $scope.like = function(likeObject) {
+      likeButton.like(likeObject)
+    };
+
+    $scope.unlike = function(likeObject) {
+      likeButton.unlike(likeObject)
+    };
 
     $scope.search = function() {
       $location.search('q', $scope.searchterms);

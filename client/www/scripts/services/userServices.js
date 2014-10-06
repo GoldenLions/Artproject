@@ -10,11 +10,10 @@ angular.module('dangerousWrenchApp')
         version    : 'v2.1' // use version 2.1
       });
     }
-    
-    console.log('userServices')
-
 
     var userServices = {
+      username: false,
+
       goToLikes: function(){
         FB.getLoginStatus(function(response){
           console.log('inside FB.getLoginSTatus')
@@ -75,17 +74,17 @@ angular.module('dangerousWrenchApp')
         })
       },
 
-      generateArtistRecommendations: function(username, limit) { 
+      generateArtistRecommendations: function(username, limit) {
         var data = JSON.stringify({username: username, limit: limit});
         console.log('dddd', data)
         return $http({
           method: 'POST',
-          url: '/generateArtistRecommendations', 
-          data: data 
-        }) 
+          url: '/generateArtistRecommendations',
+          data: data
+        })
       },
 
-      generateRandomRecommendations: function(username, limit) { 
+      generateRandomRecommendations: function(username, limit) {
         //before you grab username, u need to call FB.getLoginStatus(func(resp){}) and
         //set username to be response.authResponse.userID
         var data = JSON.stringify({username: username, limit: limit});
@@ -95,11 +94,11 @@ angular.module('dangerousWrenchApp')
           method: 'POST',
           url: '/generateRandomRecommendations',
           data: data
-        }) 
+        })
       },
 
       grabUserID: function(){
-        alert(!!userServices.userName)
+        // alert(!!userServices.userName)
         return userServices.userName;
       },
       /////////////////////////////////////

@@ -11,7 +11,6 @@ angular.module('dangerousWrenchApp')
     $scope.goToRecs = userServices.goToRecs;
     $scope.goToLikes = userServices.goToLikes;
     $scope.checkLoginState = function(){
-      console.log('hi')
       userServices.checkLoginState();
     }
   })

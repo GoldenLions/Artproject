@@ -105,6 +105,18 @@ button.facebook i{
   display: block;
 }
 
+.ion-div {
+  margin: 20px 0;
+}
+
+.ion-div img{
+  width: 48%;
+}
+
+.art-info {
+  margin-left: 2%;
+}
+
 .navbar {
   font-weight: 600;
   background-color: rgba(255,255,255,0.6);
@@ -214,14 +226,13 @@ button.facebook i{
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: url('monet.jpg') no-repeat center center;
+  background: url('light.jpg') no-repeat center center;
   background-size: cover;
 
 }
 
 .main .center-block {
   padding-top: 60px;
-  color: #FFF;
   margin-bottom: 70px;
 }
 
@@ -256,7 +267,7 @@ button.facebook i{
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   background-color: #00CAFF;
-border-color: #00CAFF;
+  border-color: #00CAFF;
 }
 
 .pagination > li > a, .pagination > li > span {
@@ -292,14 +303,6 @@ footer {
     padding-left: 0;
     padding-right: 0;
   }
-}
-/* This is for scrolling paintings horizontally*/
-
-.wide-as-needed {
-  overflow: auto;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
 }
 
 
@@ -368,10 +371,6 @@ footer, .page-wrap:after {
     margin: 0;
 }
 
-.ion-div img{
-  width: 48%;
-
-}
 
 @media only screen
 and (min-width: 992px) {
@@ -382,6 +381,10 @@ and (min-width: 992px) {
 
 @media only screen
 and (max-width: 768px) {
+  .allSearchResults {
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
   .nav,
   .nav button.facebook {
     padding-left: 15px;
@@ -396,6 +399,10 @@ and (max-width: 768px) {
     border-color: transparent;
   }
 
+  .pagination > li > a, .pagination > li > span {
+    padding: 5px 10px;
+  }
+
 
 }
 
@@ -407,6 +414,17 @@ and (min-width : 321px) {
 
 @media only screen
 and (max-width: 320px) {
+  .allSearchResults {
+    -webkit-column-count: 1;
+    column-count: 1;
+  }
+  /* This is for scrolling paintings horizontally*/
+  .wide-as-needed {
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
   .container {
     padding: 0;
   }
@@ -422,6 +440,10 @@ and (max-width: 320px) {
   .rec-image {
     width: 350px;
     height:390px
+  }
+  .pagination > li > a, .pagination > li > span {
+    padding: 5px;
+    font-size: 16px;
   }
 }
 
