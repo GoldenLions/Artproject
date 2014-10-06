@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch) {
+.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch, likeButton) {
     $scope.searchterms;
     $scope.artData = {};
     $scope.currentPage = 1;
@@ -14,12 +14,24 @@ angular.module('dangerousWrenchApp')
         .then(function (response) {
           $scope.allArtData = response.data;
           $scope.totalItems = $scope.allArtData.length;
-          console.log($scope.allArtData)
-          console.log($scope.totalItems)
+          console.log($scope.allArtData);
+          console.log($scope.totalItems);
           $scope.pageChanged()
         }, function (error) {
           console.log(error);
         })
+    };
+
+    var likeObject = {};
+    likeObject.url = 'http://www.tate.org.uk/art/images/work/T/T12/T12848_10.jpg';
+    likeObject.username = localStorage.getItem('userName');
+
+    $scope.like = function(){
+      likeButton.like(likeObject);
+    };
+
+    $scope.unlike = function(){
+      likeButton.unlike(likeObject);
     };
 
     var q = $location.search().q;

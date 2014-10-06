@@ -65,7 +65,7 @@ angular.module('dangerousWrenchApp')
       // },
 
       generateUserLikes: function(username, limit) {
-        console.log('username',username,typeof username)
+        console.log('username',username,typeof username);
         var user = JSON.stringify({username: username});
         console.log('inside generateUserLikes',user)
         return $http({
@@ -77,7 +77,7 @@ angular.module('dangerousWrenchApp')
 
       generateArtistRecommendations: function(username, limit) { 
         var data = JSON.stringify({username: username, limit: limit});
-        console.log('dddd', data)
+        console.log('dddd', data);
         return $http({
           method: 'POST',
           url: '/generateArtistRecommendations', 
