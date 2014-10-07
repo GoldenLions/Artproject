@@ -9,7 +9,7 @@ angular.module('dangerousWrenchApp')
         xfbml      : true,  // parse social plugins on this page
         version    : 'v2.1' // use version 2.1
       });
-    }();
+    };
     var userServices = {
       username: null,
       goToLikes: function(){
